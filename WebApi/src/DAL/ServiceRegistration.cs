@@ -1,4 +1,6 @@
 ﻿using DAL.Data;
+using DAL.Models;
+using DAL.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,6 +16,7 @@ namespace DAL
                 var connectionString = configuration.GetConnectionString("JiMDb");
                 options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
             });
+            serviceCollection.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             return serviceCollection;
         }
     }
