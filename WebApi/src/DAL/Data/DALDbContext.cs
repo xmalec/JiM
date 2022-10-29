@@ -11,7 +11,9 @@ namespace DAL.Data
         }
 
         public DbSet<Project> Projects { get; set; }
-
+        public DbSet<Contact> Contacts { get; set; }
+        public DbSet<Image> Images { get; set; }
+        public DbSet<ProjectLog> ProjectLogs { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
