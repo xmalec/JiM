@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BL.Services
+namespace BL.UnitOfWorks
 {
-    public interface IProjectService
+    public interface IUnitOfWork : IDisposable
     {
-
     }
 }
