@@ -46,6 +46,11 @@ namespace DAL.Repositories
             dbSet.Add(entity);
         }
 
+        public IQueryable<TEntity> Query()
+        {
+            return dbSet.AsQueryable();
+        }
+
         public void Update(TEntity entity)
         {
             dbSet.Attach(entity);

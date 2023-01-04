@@ -14,5 +14,6 @@ namespace DAL.Repositories
         public void Delete(TEntity entity);
         public void Delete(int id);
         public TEntity Find(int id);
+        public IQueryable<TEntity> Query();
     }
 }
