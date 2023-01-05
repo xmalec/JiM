@@ -12,6 +12,7 @@ services.RegisterDAL(builder.Configuration);
 services.RegisterInfrastructure();
 services.RegisterBL();
 services.AddJwtAuthentication(builder.Configuration);
+services.RegisterCors(builder.Configuration);
 services.AddControllers();
 services.AddAllAutoMappers();
 // Start Registering and Initializing AutoMapper
@@ -29,7 +30,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+app.UseCors(WebApi.ServiceRegistration.CorsPolicyName);
 app.UseAuthorization();
 
 app.MapControllers();

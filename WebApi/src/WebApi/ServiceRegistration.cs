@@ -8,6 +8,7 @@ namespace WebApi
 {
     public static class ServiceRegistration
     {
+        public static string CorsPolicyName = "corsPolicy";
         public static IServiceCollection AddJwtAuthentication(this IServiceCollection serviceCollection, IConfiguration configuration)
         {
             var jwtOptions = new JwtOptions();
@@ -41,6 +42,20 @@ namespace WebApi
         {
             return new[] { typeof(ServiceRegistration).Assembly }
                     .Concat(BL.ServiceRegistration.GetAutomapperAssemblies()).ToArray();
+        }
+
+
+        public static IServiceCollection RegisterCors(this IServiceCollection serviceCollection, IConfiguration configuration)
+        {
+            serviceCollection.AddCors(options =>
+            {
+                options.AddPolicy(name: CorsPolicyName,
+                                  policy =>
+                                  {
+                                      policy.WithOrigins(configuration["FrontendOrigin"]).AllowAnyHeader().AllowAnyMethod();
+                                  });
+            });
+            return serviceCollection;
         }
 
     }
