@@ -11,6 +11,6 @@ namespace Infrastructure.UnitOfWorks
 {
     public interface IUnitOfWorkGlobal : IUnitOfWork
     {
-        IRepository<User> UserRepository { get; }
+        IUserRepository UserRepository { get; }
     }
 }

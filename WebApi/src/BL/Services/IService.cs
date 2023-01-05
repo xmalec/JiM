@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace BL.Services
 {
-    public interface IProjectService
+    public interface IService
     {
-
     }
 }

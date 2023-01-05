@@ -1,10 +1,8 @@
-using DAL.Models;
-using DAL.Repositories;
+using AutoMapper;
+using BL.Services.Identity;
+using BL.Services.User;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Data;
-using System.Security.Claims;
-using System.Text;
 using WebApi.Models;
 
 namespace WebApi.Controllers
@@ -13,13 +11,23 @@ namespace WebApi.Controllers
     public class AuthenticationController : ApiControllerBase
     {
         private readonly ILogger<AuthenticationController> _logger;
+        private readonly IUserService userService;
+        private readonly IIdentityService identityService;
+        private readonly IMapper mapper;
 
-        public AuthenticationController(ILogger<AuthenticationController> logger)
+        public AuthenticationController(ILogger<AuthenticationController> logger,
+            IMapper mapper,
+            IUserService userService,
+            IIdentityService identityService)
         {
             _logger = logger;
+            this.mapper = mapper;
+            this.userService = userService;
+            this.identityService = identityService;
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> Login([FromBody] LoginModel model)
         {
             if (!ModelState.IsValid)
@@ -31,20 +39,7 @@ namespace WebApi.Controllers
             {
                 return BadRequest();
             }
-            var identity = user.Adapt<UserIdentityModel>();
-            var claims = new[] {
-                        new Claim(ClaimTypes.Role, Roles.Admin),
-                        new Claim("UserID", identity.Id)
-                    };
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtOptions.Key));
-            var signIn = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-            var token = new JwtSecurityToken(
-                        jwtOptions.Issuer,
-                        jwtOptions.Audience,
-                        claims,
-                        expires: DateTime.UtcNow.AddMinutes(10),
-                        signingCredentials: signIn);
-            identity.Token = new JwtSecurityTokenHandler().WriteToken(token);
+            var identity = identityService.GetIdentity(user);
             return Ok(identity);
         }
 
