@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using B2BWebApi.Models;
-using B2BWebApi.Options;
 using BL.Constants;
 using BL.Models.User;
+using BL.Options;
 using Extensions.Extensions;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;

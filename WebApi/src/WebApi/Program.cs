@@ -11,6 +11,7 @@ var services = builder.Services;
 services.RegisterDAL(builder.Configuration);
 services.RegisterInfrastructure();
 services.RegisterBL();
+services.AddEmailing(builder.Configuration);
 services.AddJwtAuthentication(builder.Configuration);
 services.RegisterCors(builder.Configuration);
 services.AddControllers();

@@ -1,4 +1,4 @@
-﻿using B2BWebApi.Options;
+﻿using BL.Options;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Reflection;
@@ -55,6 +55,16 @@ namespace WebApi
                                       policy.WithOrigins(configuration["FrontendOrigin"]).AllowAnyHeader().AllowAnyMethod();
                                   });
             });
+            return serviceCollection;
+        }
+
+        public static IServiceCollection AddEmailing(this IServiceCollection serviceCollection, IConfiguration configuration)
+        {
+            var emailSettingOptions = new EmailSettingOptions();
+            configuration.GetSection(EmailSettingOptions.SectionName).Bind(emailSettingOptions);
+            serviceCollection.Configure<EmailSettingOptions>(
+                configuration.GetSection(EmailSettingOptions.SectionName)
+            );
             return serviceCollection;
         }
 

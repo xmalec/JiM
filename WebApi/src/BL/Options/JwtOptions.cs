@@ -1,4 +1,4 @@
-﻿namespace B2BWebApi.Options
+﻿namespace BL.Options
 {
     public class JwtOptions
     {
