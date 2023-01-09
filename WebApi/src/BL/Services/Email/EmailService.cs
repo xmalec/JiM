@@ -4,6 +4,8 @@ using MailKit.Net.Smtp;
 using MailKit.Security;
 using Microsoft.Extensions.Options;
 using MimeKit;
+using RazorEngineCore;
+using System.Text;
 
 namespace BL.Services.Email
 {
@@ -32,6 +34,31 @@ namespace BL.Services.Email
             smtp.Authenticate(emailSetting.Email, emailSetting.Password);
             await smtp.SendAsync(email);
             smtp.Disconnect(true);
+        }
+
+        public string GetEmailTemplate(string emailTemplate, EmailBodyModel emailTemplateModel)
+        {
+            string mailTemplate = LoadTemplate(emailTemplate);
+
+            IRazorEngine razorEngine = new RazorEngine();
+            IRazorEngineCompiledTemplate modifiedMailTemplate = razorEngine.Compile(mailTemplate);
+
+            return modifiedMailTemplate.Run(emailTemplateModel);
+        }
+
+        private string LoadTemplate(string emailTemplate)
+        {
+            string baseDir = AppDomain.CurrentDomain.BaseDirectory;
+            string templateDir = Path.Combine(baseDir, "Templates");
+            string templatePath = Path.Combine(templateDir, $"{emailTemplate}.cshtml");
+
+            using FileStream fileStream = new FileStream(templatePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+            using StreamReader streamReader = new StreamReader(fileStream, Encoding.Default);
+
+            string mailTemplate = streamReader.ReadToEnd();
+            streamReader.Close();
+
+            return mailTemplate;
         }
     }
 }

@@ -10,5 +10,6 @@ namespace BL.Services.Email
     public interface IEmailService : IService
     {
         Task SendEmailAsync(EmailRequest mailRequest);
+        string GetEmailTemplate(string emailTemplate, EmailBodyModel emailTemplateModel);
     }
 }
