@@ -1,6 +1,7 @@
 ﻿using DAL.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Configuration;
+using File = DAL.Models.File;
 
 namespace DAL.Data
 {
@@ -9,11 +10,8 @@ namespace DAL.Data
         public DALDbContext(DbContextOptions<DALDbContext> options) : base(options)
         {
         }
-
-        public DbSet<Project> Projects { get; set; }
-        public DbSet<Contact> Contacts { get; set; }
-        public DbSet<Image> Images { get; set; }
-        public DbSet<ProjectLog> ProjectLogs { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<File> Files { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

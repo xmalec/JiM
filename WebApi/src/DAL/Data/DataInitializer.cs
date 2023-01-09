@@ -1,4 +1,5 @@
-﻿using DAL.Models;
+﻿using BCrypt.Net;
+using DAL.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace DAL.Data
@@ -11,15 +12,26 @@ namespace DAL.Data
 
             Guid user1Id = Guid.Parse("685241db-073e-4323-a7cc-eda680b2b0bb");
 
-            modelBuilder.Entity<Project>().HasData(
-                new Project
+            modelBuilder.Entity<User>().HasData(
+                new User
                 {
                     Id = 1,
-                    ProjectName = "Labclub",
-                    Description = "Description",
-                    LongDescription = "Long Description"
+                    FirstName = "Ladislav",
+                    LastName = "Košíček",
+                    Email = "admin1@domain.com",
+                    IsAdmin = true,
+                    PasswordHash = BCrypt.Net.BCrypt.HashPassword("admin")
+                },
+                new User
+                {
+                    Id = 2,
+                    FirstName = "Monika",
+                    LastName = "Nejedlá",
+                    Email = "user1@domain.com",
+                    IsAdmin = false,
+                    PasswordHash = BCrypt.Net.BCrypt.HashPassword("user")
                 }
-            );
+            ); ;
 
             #endregion
         }
