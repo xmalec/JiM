@@ -26,6 +26,7 @@ namespace BL.Services.Email
             var builder = new BodyBuilder();
             builder.HtmlBody = mailRequest.Body;
             email.Body = builder.ToMessageBody();
+            email.From.Add(new MailboxAddress("LabNet", emailSetting.DisplayName));
             using var smtp = new SmtpClient();
             smtp.Connect(emailSetting.Host, emailSetting.Port, SecureSocketOptions.StartTls);
             smtp.Authenticate(emailSetting.Email, emailSetting.Password);
