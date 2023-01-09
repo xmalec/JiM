@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DAL.Repositories
+namespace BL.Services
 {
-    public interface IRepository
+    public interface IService
     {
     }
 }

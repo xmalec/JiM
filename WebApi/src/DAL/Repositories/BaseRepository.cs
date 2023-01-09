@@ -9,15 +9,15 @@ using System.Threading.Tasks;
 
 namespace DAL.Repositories
 {
-    public class Repository<TEntity> : IRepository<TEntity> where TEntity : BaseEntity
+    public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : BaseEntity
     {
 
         private readonly DALDbContext context;
         private readonly DbSet<TEntity> dbSet;
 
-        public Repository(DALDbContext dbContext)
+        public BaseRepository(DALDbContext dbContext)
         {
-            this.context = dbContext;
+            context = dbContext;
             dbSet = dbContext.Set<TEntity>();
         }
 
@@ -44,6 +44,11 @@ namespace DAL.Repositories
         public void Insert(TEntity entity)
         {
             dbSet.Add(entity);
+        }
+
+        public IQueryable<TEntity> Query()
+        {
+            return dbSet.AsQueryable();
         }
 
         public void Update(TEntity entity)
