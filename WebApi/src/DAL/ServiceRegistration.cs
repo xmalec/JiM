@@ -24,6 +24,7 @@ namespace DAL
         private static IServiceCollection RegisterRepositories(this IServiceCollection serviceCollection,
             ServiceLifetime dependencyLifetime)
         {
+            serviceCollection.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
             return serviceCollection.RegisterImplementations<IRepository>(dependencyLifetime);
         }
     }

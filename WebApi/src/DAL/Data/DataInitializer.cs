@@ -1,6 +1,7 @@
 ﻿using BCrypt.Net;
 using DAL.Models;
 using Microsoft.EntityFrameworkCore;
+using File = DAL.Models.File;
 
 namespace DAL.Data
 {
@@ -8,10 +9,6 @@ namespace DAL.Data
     {
         public static void Seed(this ModelBuilder modelBuilder)
         {
-            #region Admins
-
-            Guid user1Id = Guid.Parse("685241db-073e-4323-a7cc-eda680b2b0bb");
-
             modelBuilder.Entity<User>().HasData(
                 new User
                 {
@@ -31,9 +28,25 @@ namespace DAL.Data
                     IsAdmin = false,
                     PasswordHash = BCrypt.Net.BCrypt.HashPassword("user")
                 }
-            ); ;
+            );
+            byte[] imageData = null;
 
-            #endregion
+            using (var wc = new System.Net.WebClient())
+                imageData = wc.DownloadData("https://cdn.alza.cz/ImgW.ashx?fd=f16&cd=SPTstorm023");
+            modelBuilder.Entity<File>().HasData(
+                new File
+                {
+                    Id = 1,
+                    Size = imageData.Length,
+                    Extension = "jpif",
+                    FileType = "image/jpeg",
+                    Data = imageData,
+                    DateCreated = DateTime.Now,
+                    Name = "Sample image",
+                    Width = 800,
+                    Height = 800
+                }
+            );
         }
     }
 }
