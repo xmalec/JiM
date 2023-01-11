@@ -1,4 +1,5 @@
-﻿using BL.Services;
+﻿using BL.Options;
+using BL.Services;
 using Extensions.Extensions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -23,6 +24,15 @@ namespace BL
         public static IEnumerable<Assembly> GetAutomapperAssemblies()
         {
             return new[] { typeof(ServiceRegistration).Assembly };
+        }
+
+        public static IServiceCollection AddEmailing(this IServiceCollection serviceCollection, IConfiguration configuration)
+        {
+            var emailSettingOptions = new EmailSettingOptions();
+            serviceCollection.Configure<EmailSettingOptions>( x =>
+                configuration.GetSection(EmailSettingOptions.SectionName)
+            );
+            return serviceCollection;
         }
     }
 }

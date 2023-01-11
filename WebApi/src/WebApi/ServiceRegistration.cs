@@ -57,16 +57,5 @@ namespace WebApi
             });
             return serviceCollection;
         }
-
-        public static IServiceCollection AddEmailing(this IServiceCollection serviceCollection, IConfiguration configuration)
-        {
-            var emailSettingOptions = new EmailSettingOptions();
-            configuration.GetSection(EmailSettingOptions.SectionName).Bind(emailSettingOptions);
-            serviceCollection.Configure<EmailSettingOptions>(
-                configuration.GetSection(EmailSettingOptions.SectionName)
-            );
-            return serviceCollection;
-        }
-
     }
 }

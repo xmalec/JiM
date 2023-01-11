@@ -22,10 +22,12 @@ namespace WebApi.Controllers
             {
                 ToEmail = "test@mail.com",
                 Subject = "test subject",
-                Body = emailService.GetEmailTemplate("emailTemplate", new NewUserModel {
+                EmailBodyModel = new NewUserModel
+                {
                     Email = "newemail@mail.com",
                     Name = "Pan Stonožka"
-                })
+                },
+                EmailType = BL.Enums.EmailType.NewUser
             };
             await emailService.SendEmailAsync(request);
             return Ok();

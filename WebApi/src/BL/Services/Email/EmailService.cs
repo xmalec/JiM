@@ -1,4 +1,5 @@
-﻿using BL.Models.Email;
+﻿using BL.Enums;
+using BL.Models.Email;
 using BL.Options;
 using MailKit.Net.Smtp;
 using MailKit.Security;
@@ -26,7 +27,7 @@ namespace BL.Services.Email
             email.To.Add(MailboxAddress.Parse(mailRequest.ToEmail));
             email.Subject = mailRequest.Subject;
             var builder = new BodyBuilder();
-            builder.HtmlBody = mailRequest.Body;
+            builder.HtmlBody = BuildEmailBody(mailRequest.EmailType, mailRequest.EmailBodyModel);
             email.Body = builder.ToMessageBody();
             email.From.Add(new MailboxAddress("LabNet", emailSetting.DisplayName));
             using var smtp = new SmtpClient();
@@ -36,9 +37,18 @@ namespace BL.Services.Email
             smtp.Disconnect(true);
         }
 
-        public string GetEmailTemplate(string emailTemplate, EmailBodyModel emailTemplateModel)
+
+
+        public string BuildEmailBody(EmailType emailType, EmailBodyModel emailTemplateModel)
         {
-            string mailTemplate = LoadTemplate(emailTemplate);
+            return FillTemplate(LayoutModel.TemplateName, new LayoutModel()
+            {
+                Content = FillTemplate(emailType.GetTemplateName(), emailTemplateModel)
+            });
+        }
+
+        private string FillTemplate(string templateName, EmailBodyModel emailTemplateModel) {
+            string mailTemplate = LoadTemplate(templateName);
 
             IRazorEngine razorEngine = new RazorEngine();
             IRazorEngineCompiledTemplate modifiedMailTemplate = razorEngine.Compile(mailTemplate);
@@ -50,7 +60,7 @@ namespace BL.Services.Email
         {
             string baseDir = AppDomain.CurrentDomain.BaseDirectory;
             string templateDir = Path.Combine(baseDir, "Templates");
-            string templatePath = Path.Combine(templateDir, $"{emailTemplate}.cshtml");
+            string templatePath = Path.Combine(templateDir, emailTemplate);
 
             using FileStream fileStream = new FileStream(templatePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
             using StreamReader streamReader = new StreamReader(fileStream, Encoding.Default);
