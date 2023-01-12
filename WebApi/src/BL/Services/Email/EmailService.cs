@@ -37,8 +37,6 @@ namespace BL.Services.Email
             smtp.Disconnect(true);
         }
 
-
-
         public string BuildEmailBody(EmailType emailType, EmailBodyModel emailTemplateModel)
         {
             return FillTemplate(LayoutModel.TemplateName, new LayoutModel()
