@@ -1,4 +1,5 @@
 using AutoMapper;
+using AzureSearch;
 using BL;
 using DAL;
 using Infrastructure;
@@ -16,6 +17,7 @@ services.AddJwtAuthentication(builder.Configuration);
 services.RegisterCors(builder.Configuration);
 services.AddControllers();
 services.AddAllAutoMappers();
+services.AddAzureSearch(builder.Configuration);
 // Start Registering and Initializing AutoMapper
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 services.AddEndpointsApiExplorer();

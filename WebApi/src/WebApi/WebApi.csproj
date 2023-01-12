@@ -18,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\AzureSearch\AzureSearch.csproj" />
     <ProjectReference Include="..\BL\BL.csproj" />
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
     <ProjectReference Include="..\DAL\DAL.csproj" />

@@ -8,7 +8,7 @@ namespace AzureSearch;
 
 public static class ServiceRegistration
 {
-    public static IServiceCollection AddSearch(this IServiceCollection serviceCollection, IConfiguration configuration)
+    public static IServiceCollection AddAzureSearch(this IServiceCollection serviceCollection, IConfiguration configuration)
     {
         serviceCollection.AddAzureClientsCore();
 
