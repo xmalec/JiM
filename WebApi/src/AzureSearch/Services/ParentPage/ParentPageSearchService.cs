@@ -38,8 +38,8 @@ public class ParentPageSearchService : AzureSearchService<ParentPageIndexModel, 
 
     protected override async Task<bool> IndexAll()
     {
-        var jobRequisitions = parentPageService.GetAllIndexModelsAsync();
-        return await AddToIndex(ConvertToIndexModels(jobRequisitions));
+        var parentPages = parentPageService.GetAllIndexModelsAsync();
+        return await AddToIndex(ConvertToIndexModels(parentPages));
     }
 
     private IList<ParentPageIndexModel> ConvertToIndexModels(IList<ParentPageIndexModelDto> jobRequisitions)
