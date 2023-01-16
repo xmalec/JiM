@@ -7,7 +7,6 @@
 
   <ItemGroup>
     <PackageReference Include="Azure.Search.Documents" Version="11.4.0" />
-    <PackageReference Include="Bluesoft.Utils" Version="0.13.13" />
     <PackageReference Include="Kontent.Ai.Delivery" Version="17.0.0" />
     <PackageReference Include="Microsoft.Extensions.Azure" Version="1.6.0" />
     <PackageReference Include="System.Linq.Async" Version="6.0.1" />

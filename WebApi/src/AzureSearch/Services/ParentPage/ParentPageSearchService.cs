@@ -7,29 +7,30 @@ using System.Threading.Tasks;
 using Azure.Search.Documents;
 using Azure.Search.Documents.Indexes;
 using Azure.Search.Documents.Indexes.Models;
+using AzureSearch.AzureSearchFilterBuilder;
 using AzureSearch.Models;
+using AzureSearch.Models.ParentPage;
 using BL.Models.ParentPage;
 using BL.Services.ParentPage;
-using Bluesoft.Utils.AzureSearchFilterBuilder;
 using Microsoft.Extensions.Azure;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
 
-namespace AzureSearch.Services.JobRequisition;
-public class JobRequisitionSearchService : AzureSearchService<JobRequisitionIndexModel, JobRequisitionsQueryModel>, IJobRequisitionSearchService
+namespace AzureSearch.Services.ParentPage;
+public class ParentPageSearchService : AzureSearchService<ParentPageIndexModel, ParentPageQueryModel>, IParentPageSearchService
 {
     private readonly IMemoryCache memoryCache;
     private readonly IParentPageService parentPageService;
 
     public const string AnalyzerName = "jobRequisitionAnalyzer";
-    public JobRequisitionSearchService(
+    public ParentPageSearchService(
             IAzureClientFactory<SearchClient> clientFactory,
-            ILogger<JobRequisitionSearchService> logger,
+            ILogger<ParentPageSearchService> logger,
             SearchIndexClient indexClient,
             IMemoryCache memoryCache
 ,
             IParentPageService parentPageService)
-        : base(logger, indexClient, clientFactory.CreateClient("JobSearchClient"))
+        : base(logger, indexClient, clientFactory.CreateClient(ServiceRegistration.ParentPageClient))
     {
         this.memoryCache = memoryCache;
         this.parentPageService = parentPageService;
@@ -37,18 +38,24 @@ public class JobRequisitionSearchService : AzureSearchService<JobRequisitionInde
 
     protected override async Task<bool> IndexAll()
     {
-        var jobRequisitions = await parentPageService.GetAllIndexModelsAsync();
+        var jobRequisitions = parentPageService.GetAllIndexModelsAsync();
         return await AddToIndex(ConvertToIndexModels(jobRequisitions));
     }
 
-    private IList<JobRequisitionIndexModel> ConvertToIndexModels(IList<ParentPageIndexModelDto> jobRequisitions)
+    private IList<ParentPageIndexModel> ConvertToIndexModels(IList<ParentPageIndexModelDto> jobRequisitions)
     {
-        return jobRequisitions.Select(jr => new JobRequisitionIndexModel()
+        return jobRequisitions.Select(pp => new ParentPageIndexModel()
         {
+            Id = pp.Id.ToString(),
+            Title = pp.Title,
+            Content = pp.Content,
+            FirstName = pp.FirstName,
+            LastName = pp.LastName,
+            PostingStartDate = DateTime.Now
         }).ToList();
     }
 
-    public override Task<AzureSearchResult<JobRequisitionIndexModel>> Search(JobRequisitionsQueryModel query, CancellationToken cancellationToken = default)
+    public override Task<AzureSearchResult<ParentPageIndexModel>> Search(ParentPageQueryModel query, CancellationToken cancellationToken = default)
     {
         return memoryCache.GetOrCreateAsync(
             (query.SearchString, string.Join("|", query.Categories), string.Join("|", query.Fields), string.Join("|", query.Localities), query.Take, query.Skip, query.Language)
@@ -62,9 +69,9 @@ public class JobRequisitionSearchService : AzureSearchService<JobRequisitionInde
                 }
                 else
                 {
-                    return Task.FromResult(new AzureSearchResult<JobRequisitionIndexModel>
+                    return Task.FromResult(new AzureSearchResult<ParentPageIndexModel>
                     {
-                        Results = Array.Empty<JobRequisitionIndexModel>()
+                        Results = Array.Empty<ParentPageIndexModel>()
                     });
                 }
             });
@@ -84,22 +91,18 @@ public class JobRequisitionSearchService : AzureSearchService<JobRequisitionInde
     {
         if (ids is null || !ids.Any())
             return true;
-        var indexModelsToRemove = new List<JobRequisitionIndexModel>();
+        var indexModelsToRemove = new List<ParentPageIndexModel>();
         foreach (var id in ids)
         {
-            indexModelsToRemove.Add(new JobRequisitionIndexModel() { Id = id.ToString() });
+            indexModelsToRemove.Add(new ParentPageIndexModel() { Id = id.ToString() });
         }
         return await RemoveFromIndex(indexModelsToRemove);
     }
 
-    protected override string GetFilter(JobRequisitionsQueryModel typedQuery, string? exceptFilter = null)
+    protected override string GetFilter(ParentPageQueryModel typedQuery, string? exceptFilter = null)
     {
         var builder = new SearchFilterBuilder()
-            .AddFilter($"{nameof(JobRequisitionIndexModel.Secret)} eq null")
-            .AddEqualsFilter(nameof(JobRequisitionIndexModel.Language), typedQuery.Language)
-            .AddInFilter(nameof(JobRequisitionIndexModel.CategorySlug), typedQuery.Categories, nameof(JobRequisitionIndexModel.CategorySlug) == exceptFilter)
-            .AddAnyFilter(nameof(JobRequisitionIndexModel.FieldSlugs), typedQuery.Fields, nameof(JobRequisitionIndexModel.FieldSlugs) == exceptFilter)
-            .AddAnyFilter(nameof(JobRequisitionIndexModel.LocationSlugs), typedQuery.Localities, nameof(JobRequisitionIndexModel.LocationSlugs) == exceptFilter);
+            .AddAnyFilter(nameof(ParentPageIndexModel.Tags), typedQuery.Localities, nameof(ParentPageIndexModel.Tags) == exceptFilter);
         return builder.Build();
     }
 

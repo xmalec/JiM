@@ -4,24 +4,25 @@ using Microsoft.AspNetCore.Mvc;
 using File = DAL.Models.File;
 using BL.Services.File;
 using Microsoft.AspNetCore.Authorization;
+using AzureSearch.Services.ParentPage;
 
 namespace WebApi.Controllers
 {
     public class SearchController : ApiControllerBase
     {
-        private readonly IFileService fileService;
+        private readonly IParentPageSearchService parentPageSearchService;
 
-        public SearchController(IFileService fileService)
+        public SearchController(IParentPageSearchService parentPageSearchService)
         {
-            this.fileService = fileService;
+            this.parentPageSearchService = parentPageSearchService;
         }
 
         [AllowAnonymous]
         [HttpGet]
-        public IActionResult Get(int id)
+        public async Task<IActionResult> RebuildAsync()
         {
-            var file = fileService.GetFileWithData(id);       
-            return File(file.Data, file.FileType);
+            await parentPageSearchService.RebuildIndex();
+            return Ok("OK");
         }
     }
 }

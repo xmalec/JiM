@@ -9,7 +9,6 @@ using Azure.Search.Documents.Indexes;
 using Azure.Search.Documents.Indexes.Models;
 using Azure.Search.Documents.Models;
 using AzureSearch.Models;
-using Bluesoft.Utils;
 using Microsoft.Extensions.Logging;
 
 namespace AzureSearch.Services;
@@ -98,7 +97,7 @@ public abstract class AzureSearchService<TResult, TQuery>
         {
             // Sometimes when your Search service is under load, indexing will fail for some of the documents in the batch
             logger.LogWarning(e, "Add to search index failed {IndexName}, IDs: [{Ids}]",
-                searchClient.IndexName, elements.Select(x => x.Id).ToList().Join(", "));
+                searchClient.IndexName, string.Join(", ", elements.Select(x => x.Id).ToList()));
             return false;
         }
     }
@@ -224,7 +223,7 @@ public abstract class AzureSearchService<TResult, TQuery>
         {
             // Sometimes when your Search service is under load, indexing will fail for some of the documents in the batch.
             logger.LogWarning(e, "Remove from search index failed. Index name: {IndexNames}," +
-                " failed index ids: [{Ids}]", searchClient.IndexName, toRemove.Select(x => x.Id).ToList().Join(", "));
+                " failed index ids: [{Ids}]", searchClient.IndexName, string.Join(", ", toRemove.Select(x => x.Id).ToList()));
             return false;
         }
     }

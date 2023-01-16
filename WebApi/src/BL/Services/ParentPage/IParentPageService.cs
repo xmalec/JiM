@@ -9,7 +9,7 @@ namespace BL.Services.ParentPage
 {
     public interface IParentPageService : IService
     {
-        Task<IList<ParentPageIndexModelDto>> GetAllIndexModelsAsync();
+        IList<ParentPageIndexModelDto> GetAllIndexModelsAsync();
         Task<IList<ParentPageIndexModelDto>> GetIndexModelsAsync(IList<int> ids);
     }
 }
