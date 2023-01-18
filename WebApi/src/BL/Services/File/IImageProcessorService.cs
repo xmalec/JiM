@@ -1,4 +1,4 @@
-﻿using BL.Models.File;
+﻿using BL.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace BL.Services.File
 {
-    public interface IFileService : IService
+    public interface IImageProcessorService : IService
     {
-        Task<FileWithDataDto> GetFileWithData(int fileId, int maxSize);
+        public byte[] Resize(byte[] data, float maxWidth);
     }
 }

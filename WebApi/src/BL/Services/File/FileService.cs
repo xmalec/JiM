@@ -10,30 +10,35 @@ namespace BL.Services.File
     public class FileService : IFileService
     {
         private readonly IBaseRepository<DAL.Models.File> fileRepository;
+        private readonly IImageProcessorService imageProcessorService;
         private readonly IMapper mapper;
         private readonly IMemoryCache memoryCache;
 
         public FileService(IBaseRepository<DAL.Models.File> fileRepository,
             IMapper mapper,
-            IMemoryCache memoryCache)
+            IMemoryCache memoryCache,
+            IImageProcessorService imageProcessorService)
         {
             this.fileRepository = fileRepository;
             this.mapper = mapper;
             this.memoryCache = memoryCache;
+            this.imageProcessorService = imageProcessorService;
         }
 
-        public Task<FileWithDataDto> GetFileWithData(int fileId)
+        public Task<FileWithDataDto> GetFileWithData(int fileId, int maxSize)
         {
-            return memoryCache.GetOrCreateAsync(GetCacheKey(fileId),
+            return memoryCache.GetOrCreateAsync(GetCacheKey(fileId, maxSize),
                 entry =>
                 {
-                    return Task.FromResult(fileRepository.Find(fileId).Map<FileWithDataDto>(mapper));
+                    var file = fileRepository.Find(fileId).Map<FileWithDataDto>(mapper);
+                    file.Data = imageProcessorService.Resize(file.Data, maxSize);
+                    return Task.FromResult(file);
                 });
         }
 
-        private string GetCacheKey(int fileId)
+        private string GetCacheKey(int fileId, int maxSize)
         {
-            return $"file_{fileId}";
+            return $"file_{fileId}_{maxSize}";
         }
     }
 }
