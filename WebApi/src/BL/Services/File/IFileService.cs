@@ -9,6 +9,6 @@ namespace BL.Services.File
 {
     public interface IFileService : IService
     {
-        FileWithDataDto GetFileWithData(int fileId);
+        Task<FileWithDataDto> GetFileWithData(int fileId);
     }
 }

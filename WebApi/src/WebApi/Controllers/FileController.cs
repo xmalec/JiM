@@ -18,9 +18,9 @@ namespace WebApi.Controllers
 
         [AllowAnonymous]
         [HttpGet]
-        public IActionResult Get(int id)
+        public async Task<IActionResult> GetAsync(int id)
         {
-            var file = fileService.GetFileWithData(id);       
+            var file = await fileService.GetFileWithData(id);       
             return File(file.Data, file.FileType);
         }
     }

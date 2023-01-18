@@ -3,6 +3,7 @@ using DAL.Repositories;
 using DAL.Models;
 using Extensions.Extensions;
 using AutoMapper;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace BL.Services.File
 {
@@ -10,16 +11,29 @@ namespace BL.Services.File
     {
         private readonly IBaseRepository<DAL.Models.File> fileRepository;
         private readonly IMapper mapper;
+        private readonly IMemoryCache memoryCache;
 
-        public FileService(IBaseRepository<DAL.Models.File> fileRepository, IMapper mapper)
+        public FileService(IBaseRepository<DAL.Models.File> fileRepository,
+            IMapper mapper,
+            IMemoryCache memoryCache)
         {
             this.fileRepository = fileRepository;
             this.mapper = mapper;
+            this.memoryCache = memoryCache;
         }
 
-        public FileWithDataDto GetFileWithData(int fileId)
+        public Task<FileWithDataDto> GetFileWithData(int fileId)
         {
-            return fileRepository.Find(fileId).Map<FileWithDataDto>(mapper);
+            return memoryCache.GetOrCreateAsync(GetCacheKey(fileId),
+                entry =>
+                {
+                    return Task.FromResult(fileRepository.Find(fileId).Map<FileWithDataDto>(mapper));
+                });
+        }
+
+        private string GetCacheKey(int fileId)
+        {
+            return $"file_{fileId}";
         }
     }
 }
