@@ -43,6 +43,7 @@ namespace DAL.Repositories
 
         public void Insert(TEntity entity)
         {
+            entity.CreatedDate = DateTime.Now;
             dbSet.Add(entity);
         }
 
@@ -53,6 +54,7 @@ namespace DAL.Repositories
 
         public void Update(TEntity entity)
         {
+            entity.UpdatedDate = DateTime.Now;
             dbSet.Attach(entity);
             context.Entry(entity).State = EntityState.Modified;
         }
