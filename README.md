@@ -11,10 +11,11 @@
  - Entity Framework ORM
  - DI configuration
  - Blank React project
+ - Service Factory
+ - Logging setup
 
 ## TODO
 
- - Event handlers - Create logs on create, update, etc.. 
  - Cron jobs - saving logs into database
  - Basic tests
  - Setting Github Action to build project and start the tests
