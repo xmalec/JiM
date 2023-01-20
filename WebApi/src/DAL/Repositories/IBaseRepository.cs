@@ -9,11 +9,11 @@ namespace DAL.Repositories
 {
     public interface IBaseRepository<TEntity> : IRepository where TEntity : BaseEntity
     {
-        public void Insert(TEntity entity);
-        public void Update(TEntity entity);
-        public void Delete(TEntity entity);
-        public void Delete(int id);
-        public TEntity Find(int id);
-        public IQueryable<TEntity> Query();
+        Task Insert(TEntity entity);
+        Task Update(TEntity entity);
+        Task Delete(TEntity entity);
+        Task Delete(int id);
+        TEntity GetById(int id);
+        IQueryable<TEntity> Query();
     }
 }

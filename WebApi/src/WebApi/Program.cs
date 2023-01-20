@@ -6,6 +6,11 @@ using Infrastructure;
 using WebApi;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Host.ConfigureLogging(logging =>
+{
+    logging.ClearProviders();
+    logging.AddConsole();
+});
 
 // Add services to the container.
 var services = builder.Services;

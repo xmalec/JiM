@@ -5,12 +5,12 @@ using Extensions.Extensions;
 
 namespace BL.Services.User
 {
-    public class UserService : IUserService
+    public class UserService : BaseCRUDService<DAL.Models.User, UserDto>, IUserService
     {
         private readonly IUserRepository userRepository;
         private readonly IMapper mapper;
 
-        public UserService(IUserRepository userRepository, IMapper mapper)
+        public UserService(IUserRepository userRepository, IMapper mapper) : base(userRepository, mapper)
         {
             this.userRepository = userRepository;
             this.mapper = mapper;

@@ -1,6 +1,7 @@
 ﻿using DAL.Data;
 using DAL.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,37 +15,46 @@ namespace DAL.Repositories
 
         private readonly DALDbContext context;
         private readonly DbSet<TEntity> dbSet;
+        private readonly ILogger<BaseRepository<TEntity>> logger;
 
-        public BaseRepository(DALDbContext dbContext)
+        private readonly string entityName = typeof(TEntity).Name;
+
+        public BaseRepository(DALDbContext dbContext,
+            ILogger<BaseRepository<TEntity>> logger)
         {
             context = dbContext;
             dbSet = dbContext.Set<TEntity>();
+            this.logger = logger;
         }
 
-        public void Delete(TEntity entity)
+        public async Task Delete(TEntity entity)
         {
             if (context.Entry(entity).State == EntityState.Detached)
             {
                 dbSet.Attach(entity);
             }
             dbSet.Remove(entity);
+            logger.LogInformation($"Object of type {entityName} DELETED. Id: {entity.Id}");
         }
 
-        public void Delete(int id)
+        public async Task Delete(int id)
         {
             TEntity entityToDelete = dbSet.Find(id);
             Delete(entityToDelete);
         }
 
-        public TEntity Find(int id)
+        public TEntity GetById(int id)
         {
             return dbSet.Find(id);
         }
 
-        public void Insert(TEntity entity)
+        public virtual async Task Insert(TEntity entity)
         {
             entity.CreatedDate = DateTime.Now;
             dbSet.Add(entity);
+            await context.SaveChangesAsync();
+            context.Entry(entity).State = EntityState.Detached;
+            logger.LogInformation($"Object of type {entityName} CREATED. Id: {entity.Id}");
         }
 
         public IQueryable<TEntity> Query()
@@ -52,11 +62,13 @@ namespace DAL.Repositories
             return dbSet.AsQueryable();
         }
 
-        public void Update(TEntity entity)
+        public async Task Update(TEntity entity)
         {
             entity.UpdatedDate = DateTime.Now;
-            dbSet.Attach(entity);
-            context.Entry(entity).State = EntityState.Modified;
+            var originalEntity = context.Find<TEntity>(entity.Id);
+            context.Entry(originalEntity).CurrentValues.SetValues(entity);
+            await context.SaveChangesAsync();
+            logger.LogInformation($"Object of type {entityName} UPDATED. Id: {entity.Id}");
         }
     }
 }

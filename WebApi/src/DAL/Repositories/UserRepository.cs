@@ -1,5 +1,6 @@
 ﻿using DAL.Data;
 using DAL.Models;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ namespace DAL.Repositories
 {
     public class UserRepository : BaseRepository<User>, IUserRepository
     {
-        public UserRepository(DALDbContext dbContext) : base(dbContext)
+        public UserRepository(DALDbContext dbContext, ILogger<BaseRepository<User>> logger) : base(dbContext, logger)
         {
         }
 

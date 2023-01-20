@@ -17,14 +17,14 @@ namespace DAL
                 var connectionString = configuration.GetConnectionString("app_db");
                 options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
             });
-            serviceCollection.RegisterRepositories(ServiceLifetime.Scoped);
+            serviceCollection.RegisterRepositories(ServiceLifetime.Transient);
             return serviceCollection;
         }
 
         private static IServiceCollection RegisterRepositories(this IServiceCollection serviceCollection,
             ServiceLifetime dependencyLifetime)
         {
-            serviceCollection.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
+            serviceCollection.AddTransient(typeof(IBaseRepository<>), typeof(BaseRepository<>));
             return serviceCollection.RegisterImplementations<IRepository>(dependencyLifetime);
         }
     }
