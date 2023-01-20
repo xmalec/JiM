@@ -9,13 +9,10 @@ namespace BL.Services
         : IBaseCRUDService<TEntity, TEntityDTO> where TEntity : BaseEntity
     {
         protected readonly IBaseRepository<TEntity> repository;
-        protected readonly IMapper mapper;
 
-        public BaseCRUDService(IBaseRepository<TEntity> repository,
-            IMapper mapper)
+        public BaseCRUDService(IBaseRepository<TEntity> repository)
         {
             this.repository = repository;
-            this.mapper = mapper;
         }
 
         public async Task<int> Add(TEntityDTO newEntityDTO)

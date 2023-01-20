@@ -8,12 +8,10 @@ namespace BL.Services.User
     public class UserService : BaseCRUDService<DAL.Models.User, UserDto>, IUserService
     {
         private readonly IUserRepository userRepository;
-        private readonly IMapper mapper;
 
-        public UserService(IUserRepository userRepository, IMapper mapper) : base(userRepository, mapper)
+        public UserService(IUserRepository userRepository) : base(userRepository)
         {
             this.userRepository = userRepository;
-            this.mapper = mapper;
         }
 
         public async Task<bool> IsEmailUnique(string email)

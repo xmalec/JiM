@@ -14,12 +14,10 @@ namespace BL.Services.Identity
 {
     public class IdentityService : IIdentityService
     {
-        private readonly IMapper mapper;
         private readonly JwtOptions jwtOptions;
 
-        public IdentityService(IMapper mapper, IOptions<JwtOptions> options)
+        public IdentityService(IOptions<JwtOptions> options)
         {
-            this.mapper = mapper;
             jwtOptions = options.Value;
         }
 

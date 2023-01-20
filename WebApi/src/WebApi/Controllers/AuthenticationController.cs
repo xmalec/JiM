@@ -13,15 +13,12 @@ namespace WebApi.Controllers
         private readonly ILogger<AuthenticationController> _logger;
         private readonly IUserService userService;
         private readonly IIdentityService identityService;
-        private readonly IMapper mapper;
 
         public AuthenticationController(ILogger<AuthenticationController> logger,
-            IMapper mapper,
             IUserService userService,
             IIdentityService identityService)
         {
             _logger = logger;
-            this.mapper = mapper;
             this.userService = userService;
             this.identityService = identityService;
         }

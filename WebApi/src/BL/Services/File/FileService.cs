@@ -11,16 +11,13 @@ namespace BL.Services.File
     {
         private readonly IBaseRepository<DAL.Models.File> fileRepository;
         private readonly IImageProcessorService imageProcessorService;
-        private readonly IMapper mapper;
         private readonly IMemoryCache memoryCache;
 
         public FileService(IBaseRepository<DAL.Models.File> fileRepository,
-            IMapper mapper,
             IMemoryCache memoryCache,
             IImageProcessorService imageProcessorService)
         {
             this.fileRepository = fileRepository;
-            this.mapper = mapper;
             this.memoryCache = memoryCache;
             this.imageProcessorService = imageProcessorService;
         }
