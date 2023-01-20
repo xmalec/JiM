@@ -34,7 +34,7 @@ namespace DAL.Repositories
                 dbSet.Attach(entity);
             }
             dbSet.Remove(entity);
-            logger.LogInformation($"Object of type {entityName} DELETED. Id: {entity.Id}");
+            logger.LogInformation($"DELETE object {entityName}. Id: {entity.Id}");
         }
 
         public async Task Delete(int id)
@@ -48,13 +48,13 @@ namespace DAL.Repositories
             return dbSet.Find(id);
         }
 
-        public virtual async Task Insert(TEntity entity)
+        public async Task Insert(TEntity entity)
         {
             entity.CreatedDate = DateTime.Now;
             dbSet.Add(entity);
             await context.SaveChangesAsync();
             context.Entry(entity).State = EntityState.Detached;
-            logger.LogInformation($"Object of type {entityName} CREATED. Id: {entity.Id}");
+            logger.LogInformation($"CREATE object {entityName}. Id: {entity.Id}");
         }
 
         public IQueryable<TEntity> Query()
@@ -68,7 +68,7 @@ namespace DAL.Repositories
             var originalEntity = context.Find<TEntity>(entity.Id);
             context.Entry(originalEntity).CurrentValues.SetValues(entity);
             await context.SaveChangesAsync();
-            logger.LogInformation($"Object of type {entityName} UPDATED. Id: {entity.Id}");
+            logger.LogInformation($"UPDATE object {entityName}. Id: {entity.Id}");
         }
     }
 }

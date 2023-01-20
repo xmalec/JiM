@@ -34,9 +34,10 @@ namespace WebApi.Controllers
 
         // POST api/<UserController>
         [HttpPost]
-        public void Post([FromBody] UserDto userDto)
+        public async Task<IActionResult> PostAsync([FromBody] UserDto userDto)
         {
-            userService.Add(userDto);
+            await userService.Add(userDto);
+            return Ok();
         }
 
         // PUT api/<UserController>/5
