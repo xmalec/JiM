@@ -30,7 +30,7 @@ namespace BL.Services.File
             return memoryCache.GetOrCreateAsync(GetCacheKey(fileId, maxSize),
                 entry =>
                 {
-                    var file = fileRepository.GetById(fileId).Map<FileWithDataDto>(mapper);
+                    var file = fileRepository.GetById(fileId).Map<FileWithDataDto>();
                     file.Data = imageProcessorService.Resize(file.Data, maxSize);
                     return Task.FromResult(file);
                 });

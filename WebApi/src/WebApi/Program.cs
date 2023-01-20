@@ -24,6 +24,7 @@ services.AddControllers();
 services.AddAllAutoMappers();
 services.AddAzureSearch(builder.Configuration);
 services.AddMemoryCache();
+services.AddServiceFactory();
 // Start Registering and Initializing AutoMapper
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 services.AddEndpointsApiExplorer();

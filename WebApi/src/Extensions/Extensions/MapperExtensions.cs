@@ -4,9 +4,16 @@ namespace Extensions.Extensions
 {
     public static class MapperExtensions
     {
-        public static TDestination Map<TDestination>(this object obj, IMapper mapper)
+        private static IMapper _mapper;
+
+        public static void Configure(IMapper mapper)
         {
-            return mapper.Map<TDestination>(obj);
+            _mapper = mapper;
+        }
+
+        public static TDestination Map<TDestination>(this object obj)
+        {
+            return _mapper.Map<TDestination>(obj);
         }
     }
 }

@@ -20,7 +20,7 @@ namespace BL.Services
 
         public async Task<int> Add(TEntityDTO newEntityDTO)
         {
-            var entity = newEntityDTO.Map<TEntity>(mapper);
+            var entity = newEntityDTO.Map<TEntity>();
             await repository.Insert(entity);
             return entity.Id;
         }
@@ -29,20 +29,20 @@ namespace BL.Services
         {
             return repository
                     .Query()
-                    .Map<IEnumerable<TEntityDTO>>(mapper);
+                    .Map<IEnumerable<TEntityDTO>>();
         }
 
         public TEntityDTO GetById(int id)
         {
             return repository
                     .GetById(id)
-                    .Map<TEntityDTO>(mapper);
+                    .Map<TEntityDTO>();
         }
 
         public Task Update(TEntityDTO updateEntityDTO)
         {
             return repository
-                    .Update(updateEntityDTO.Map<TEntity>(mapper));
+                    .Update(updateEntityDTO.Map<TEntity>());
         }
 
         public Task Delete(int id)

@@ -1,7 +1,10 @@
 ﻿using BL.Models.User;
 using BL.Services.User;
+using Extensions.Extensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
+using WebApi.Models.User;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -34,9 +37,13 @@ namespace WebApi.Controllers
 
         // POST api/<UserController>
         [HttpPost]
-        public async Task<IActionResult> PostAsync([FromBody] UserDto userDto)
+        public async Task<IActionResult> PostAsync([FromBody] UserCreateModel userCreateModel)
         {
-            await userService.Add(userDto);
+            if(!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            await userService.Add(userCreateModel.Map<UserDto>());
             return Ok();
         }
 

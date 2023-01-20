@@ -25,7 +25,7 @@ namespace BL.Services.Identity
 
         public IdentityModel GetIdentity(UserDto user)
         {
-            var identity = user.Map<IdentityModel>(mapper);
+            var identity = user.Map<IdentityModel>();
             var claims = new[] {
                         new Claim(ClaimTypes.Role, user.IsAdmin ? Roles.Admin : Roles.Parent),
                         new Claim("UserID", identity.Id)

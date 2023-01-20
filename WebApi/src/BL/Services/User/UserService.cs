@@ -16,12 +16,17 @@ namespace BL.Services.User
             this.mapper = mapper;
         }
 
+        public async Task<bool> IsEmailUnique(string email)
+        {
+            return !userRepository.Query().Any(x => x.Email == email);
+        }
+
         public async Task<UserDto?> LoginUser(string email, string password)
         {
             var user = userRepository.GetUserByEmail(email);
             if (user != null && BCrypt.Net.BCrypt.Verify(password, user.PasswordHash))
             {
-                return user.Map<UserDto>(mapper);
+                return user.Map<UserDto>();
             }
             return null;
         }

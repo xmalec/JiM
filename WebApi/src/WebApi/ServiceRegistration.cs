@@ -1,8 +1,12 @@
-﻿using BL.Options;
+﻿using AutoMapper;
+using BL.Options;
+using Extensions.Extensions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Reflection;
 using System.Text;
+using WebApi.DI;
+using WebApi.Filters;
 
 namespace WebApi
 {
@@ -35,6 +39,8 @@ namespace WebApi
         public static IServiceCollection AddAllAutoMappers(this IServiceCollection serviceCollection)
         {
             serviceCollection.AddAutoMapper(GetAutoMapperAssemblies());
+            var sp = serviceCollection.BuildServiceProvider();
+            MapperExtensions.Configure(sp.GetService<IMapper>());
             return serviceCollection;
         }
 
@@ -55,6 +61,16 @@ namespace WebApi
                                       policy.WithOrigins(configuration["FrontendOrigin"]).AllowAnyHeader().AllowAnyMethod();
                                   });
             });
+            return serviceCollection;
+        }
+
+        public static IServiceCollection AddServiceFactory(this IServiceCollection serviceCollection)
+        {
+            serviceCollection.AddHttpContextAccessor();
+
+            serviceCollection.AddSingleton<ScopedServiceProviderSource>();
+            serviceCollection.AddSingleton<IStartupFilter, ServiceFactoryStartupFilter>();
+
             return serviceCollection;
         }
     }
