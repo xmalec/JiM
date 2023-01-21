@@ -3,6 +3,7 @@ using AzureSearch;
 using BL;
 using DAL;
 using Infrastructure;
+using ScheduleTasks;
 using WebApi;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -29,7 +30,7 @@ services.AddServiceFactory();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 services.AddEndpointsApiExplorer();
 services.AddSwaggerGen();
-
+services.InitScheduleTasks(builder.Configuration);
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
