@@ -19,5 +19,7 @@
 
 ## TODO
 
- - Build frontend
+ - Upgrade Node v19
+ - Setup Prettier & Eslint
+ - Build frontend GitHub Actions
  - Advanced frontend template
