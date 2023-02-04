@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace ScheduleTasks.Jobs
 {
-    [JobRegistration("0/3 * * * * ?")]
+    //[JobRegistration("0/3 * * * * ?")]
     public class HelloJob : IJob
     {
         private readonly ILogger<HelloJob> logger;

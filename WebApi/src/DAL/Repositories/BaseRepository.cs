@@ -66,6 +66,7 @@ namespace DAL.Repositories
         {
             entity.UpdatedDate = DateTime.Now;
             var originalEntity = context.Find<TEntity>(entity.Id);
+            entity.CreatedDate = originalEntity.CreatedDate;
             context.Entry(originalEntity).CurrentValues.SetValues(entity);
             await context.SaveChangesAsync();
             logger.LogInformation($"UPDATE object {entityName}. Id: {entity.Id}");

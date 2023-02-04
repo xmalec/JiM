@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace ScheduleTasks.Jobs
 {
-    [JobRegistration("0/5 * * * * ?")]
+    //[JobRegistration("0/5 * * * * ?")]
     public class RebuildIndexJob : DbJob
     {
         private readonly ILogger<RebuildIndexJob> logger;
