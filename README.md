@@ -11,7 +11,7 @@
  - Entity Framework ORM
  - DI configuration
  - Blank React project
- - Schedule tasks using Quartz.NET
+ - Schedule tasks using Quartz.NET with db loging and run control
  - Service Factory
  - Logging setup
 
