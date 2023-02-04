@@ -14,9 +14,10 @@
  - Schedule tasks using Quartz.NET with db loging and run control
  - Service Factory
  - Logging setup
+ - NUnit test project
+ - Github Action to build project and run the tests
 
 ## TODO
 
- - Basic tests
- - Setting Github Action to build project and start the tests
- - Setting Github Action to deploy project
+ - Build frontend
+ - Advanced frontend template
