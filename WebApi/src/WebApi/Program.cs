@@ -30,7 +30,8 @@ services.AddServiceFactory();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 services.AddEndpointsApiExplorer();
 services.AddSwaggerGen();
-services.InitScheduleTasks(builder.Configuration);
+services.SetupScheduleTasks(builder.Configuration);
+//services.InitScheduleTasks(builder.Configuration);
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

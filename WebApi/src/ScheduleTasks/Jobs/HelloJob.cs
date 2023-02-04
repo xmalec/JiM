@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using Quartz;
+using ScheduleTasks.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace ScheduleTasks.Jobs
 {
+    [JobRegistration("0/3 * * * * ?")]
     public class HelloJob : IJob
     {
         private readonly ILogger<HelloJob> logger;
@@ -19,7 +21,7 @@ namespace ScheduleTasks.Jobs
 
         public async Task Execute(IJobExecutionContext context)
         {
-            logger.LogInformation("Greetings from HelloJob!");
+            logger.LogInformation($"Job {nameof(HelloJob)} executed.");
         }
     }
 }

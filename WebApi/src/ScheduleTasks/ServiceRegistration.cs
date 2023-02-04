@@ -12,43 +12,62 @@ using Quartz.Impl.Calendar;
 using Quartz.Impl.Matchers;
 using System.Globalization;
 using ScheduleTasks.Jobs;
+using ScheduleTasks.Attributes;
 
 namespace ScheduleTasks
 {
     public static class ServiceRegistration
     {
-        public static IServiceCollection InitScheduleTasks(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection SetupScheduleTasks(this IServiceCollection services, IConfiguration configuration)
         {
-            services.Configure<QuartzOptions>(options =>
+            var jobs = GetJobs().ToList();
+            if(jobs.Any())
             {
-                options.Scheduling.IgnoreDuplicates = true;
-                options.Scheduling.OverWriteExistingData = true;
-            });
-
-            services.AddQuartz(q =>
-            {
-                // handy when part of cluster or you want to otherwise identify multiple schedulers
-                q.SchedulerId = "Scheduler-Core";
-                q.UseMicrosoftDependencyInjectionJobFactory();
-                q.UseSimpleTypeLoader();
-                q.UseInMemoryStore();
-                q.UseDefaultThreadPool(tp =>
+                services.AddQuartz(q =>
                 {
-                    tp.MaxConcurrency = 10;
+                    q.SchedulerId = "JiM schedule tasks";
+                    q.UseMicrosoftDependencyInjectionJobFactory();
+                    q.UseSimpleTypeLoader();
+                    q.UseInMemoryStore();
+                    q.UseDefaultThreadPool(tp =>
+                    {
+                        tp.MaxConcurrency = 10;
+                    });
+                    foreach (var job in jobs)
+                    {
+                        var jobKey = new JobKey(job.Type.Name);
+                        q.AddJob(job.Type, jobKey);
+                        q.AddTrigger(c => c
+                            .ForJob(jobKey)
+                            .StartAt(DateBuilder.EvenSecondDate(DateTimeOffset.UtcNow.AddSeconds(7)))
+                            .WithCronSchedule(job.CronExpr)
+                        );
+                    }
                 });
-                var a = DateBuilder.EvenSecondDate(DateTimeOffset.UtcNow.AddSeconds(15));
-                // quickest way to create a job with single trigger is to use ScheduleJob
-                // (requires version 3.2)
-                q.ScheduleJob<HelloJob>(trigger => trigger
-                    .WithIdentity("Combined Configuration Trigger")
-                    .StartAt(DateBuilder.EvenSecondDate(DateTimeOffset.UtcNow.AddSeconds(7)))
-                    .WithDailyTimeIntervalSchedule(x => x.WithInterval(10, IntervalUnit.Second))
-                    .WithDescription("my awesome trigger configured for a job with single call")
-                );
-
-            });
-            services.AddTransient<HelloJob>();
+                services.AddQuartzHostedService(options =>
+                {
+                    // when shutting down we want jobs to complete gracefully
+                    options.WaitForJobsToComplete = true;
+                });
+            }
+            foreach (var job in jobs)
+            {
+                services.AddTransient(job.Type);
+            }
             return services;
         }
+
+        private static IEnumerable<JobRegistrationRecord> GetJobs()
+        {
+            var types = typeof(ServiceRegistration).Assembly.GetTypes();
+            var interfaceType = typeof(IJob);
+            var jobs = types
+            .Where(t => !t.IsAbstract && !t.IsGenericType && interfaceType.IsAssignableFrom(t))
+            .Select(j => new JobRegistrationRecord(j, j.GetCustomAttribute<JobRegistrationAttribute>()?.CronExpr))
+            .Where(j => !string.IsNullOrEmpty(j.CronExpr));
+            return jobs;
+        }
     }
+
+    public record JobRegistrationRecord(Type Type, string? CronExpr);
 }
