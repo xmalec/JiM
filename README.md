@@ -12,6 +12,8 @@
  - DI configuration
  - Blank React project
  - Schedule tasks using Quartz.NET
+ - Service Factory
+ - Logging setup
 
 ## TODO
 
