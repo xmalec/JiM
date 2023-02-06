@@ -1,6 +1,6 @@
-# Jim Starter .NET Core project template
+# Jim Starter project template
 
-## Supports
+## WebApi .NET Core Supports
 
  - Identity management
  - Azure Cognitive search integration
@@ -10,16 +10,19 @@
  - Automapper configuration
  - Entity Framework ORM
  - DI configuration
- - Blank React project
  - Schedule tasks using Quartz.NET with db loging and run control
  - Service Factory
  - Logging setup
  - NUnit test project
  - Github Action to build project and run the tests
+ 
+## React Fronend Supports
+
+ - Blank react project
+ - Basic ESLint && Prettier configuration setup
+ - Tailwind setup
 
 ## TODO
 
- - Upgrade Node v19
- - Setup Prettier & Eslint
  - Build frontend GitHub Actions
  - Advanced frontend template
