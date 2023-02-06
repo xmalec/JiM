@@ -1,43 +1,36 @@
-import { useState, FormEvent } from "react";
+import { useState, FormEvent, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { login } from "../hooks/useFetchData";
 import useField from "../hooks/useField";
 import useLoggedInUser from "../hooks/useLoggedInUser";
 import { BadRequestError } from "../utils/ApiConnector";
+import { Form, Field } from "react-final-form";
+import { required } from "../utils/FormValidationRules";
+import { log } from "console";
+import TextInput from "./TextInput";
 
 const LoginForm = () => {
 	const navigate = useNavigate();
-	const [email] = useField("email", true);
-	const [password] = useField("password", true);
-	const [submitError, setSubmitError] = useState<string>();
 	const [, setAuth] = useLoggedInUser();
+	const onSubmit = useCallback(() => {
+		console.log("submited");
+	}, []);
 	return (
-		<form
-			onSubmit={async (e: FormEvent) => {
-				e.preventDefault();
-				try {
-					setAuth(await login(email, password));
-					navigate("/");
-					//setMessage("Successfully logged in");
-				} catch (err) {
-					if (err instanceof BadRequestError) {
-						//etMessage("Login failed", "error");
-					} else {
-						setSubmitError(
-							(err as { message?: string })?.message ??
-								"Unknown error occurred"
-						);
-					}
-				}
-			}}
-		>
-			<input name="Email" type="email" />
-			<input name="Password" type="password" />
+		<Form
+			onSubmit={onSubmit}
+			render={({ handleSubmit }) => (
+				<form onSubmit={handleSubmit}>
+					<h2>Login</h2>
+					<div>
+						<label>First Name</label>
+						<TextInput id="email" label="login"></TextInput>
+					</div>
 
-			{submitError && <span>{submitError}</span>}
-			<button type="submit">Sign In</button>
-		</form>
+					<button type="submit">Submit</button>
+				</form>
+			)}
+		/>
 	);
 };
 

@@ -1,5 +1,6 @@
 import { FieldValidator } from "final-form";
-import { useField } from "react-final-form";
+import { Field, useField } from "react-final-form";
+import { required } from "../utils/FormValidationRules";
 
 type Props = {
 	id: string;
@@ -15,8 +16,13 @@ const TextInput = ({ id, validate, label }: Props) => {
 	const hasError = meta.touched && meta.error;
 	return (
 		<>
-			<label>{label}</label>
-			<input type="text" {...input} />
+			<Field
+				name="email"
+				component="input"
+				placeholder="Email"
+				validate={required}
+			/>
+			{hasError && <span>{meta.error}</span>}
 		</>
 	);
 };
