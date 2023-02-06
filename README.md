@@ -16,7 +16,7 @@
  - NUnit test project
  - Github Action to build project and run the tests
  
-## React Fronend Supports
+## React Frontend Supports
 
  - Blank react project
  - Basic ESLint && Prettier configuration setup
