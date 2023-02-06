@@ -12,7 +12,7 @@ function App() {
           Edit <code>src/App.tsx</code> and save to reload.
         </p>
         <span className="text-3xl font-bold">
-          Hello tailwind
+          Hello tailwind  
         </span>
         <a
           className="App-link"

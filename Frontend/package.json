@@ -21,13 +21,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "tailwind": "npx tailwindcss -i ./src/input.css -o ./src/output.css --watch",
-    "lint": "eslint \"./src/**/*.{ts,tsx}\" && prettier \"./src/**/*.{ts,tsx}\" --check"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
+    "lint": "eslint \"./src/**/*.{ts,tsx}\"",
+    "pretier": "prettier \"./src/**/*.{ts,tsx}\" --check"
   },
   "browserslist": {
     "production": [
@@ -43,14 +38,9 @@
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.50.0",
+    "@typescript-eslint/parser": "^5.50.0",
     "eslint": "^8.33.0",
-    "eslint-config-standard-with-typescript": "^34.0.0",
-    "eslint-plugin-import": "^2.27.5",
-    "eslint-plugin-n": "^15.6.1",
-    "eslint-plugin-promise": "^6.1.1",
     "eslint-plugin-react": "^7.32.2",
-    "prettier": "2.8.3",
-    "prettier-eslint": "15.0.1",
     "tailwindcss": "^3.1.8",
     "typescript": "^4.9.5"
   }
