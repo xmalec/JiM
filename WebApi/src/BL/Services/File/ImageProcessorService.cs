@@ -11,10 +11,10 @@ namespace BL.Services.File
 {
     public class ImageProcessorService : IImageProcessorService
     {
-        public byte[] Resize(byte[] data, float maxWidth)
+        public byte[] Resize(string path, float maxWidth)
         {
             IImageFormat? format = null;
-            using (var image = Image.Load(data, out format))
+            using (var image = Image.Load(path, out format))
             {
                 var ratio = Math.Min(1, maxWidth / image.Width);
                 image.Mutate(x => x

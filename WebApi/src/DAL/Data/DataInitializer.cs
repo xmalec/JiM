@@ -40,7 +40,7 @@ namespace DAL.Data
                     Size = imageData.Length,
                     Extension = "jpif",
                     FileType = "image/jpeg",
-                    Data = imageData,
+                    Path = "MediaLibrary/Subfolder/ImgW.jfif",
                     DateCreated = DateTime.Now,
                     Name = "Sample image",
                     Width = 800,

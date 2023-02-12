@@ -23,6 +23,12 @@
 		<Content Include="Templates/*.cshtml">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Content>
+		<Content Include="MediaLibrary/*/*.*">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+	</ItemGroup>
+	<ItemGroup>
+	  <Folder Include="MediaLibrary\SubFolder\" />
 	</ItemGroup>
 	
 </Project>

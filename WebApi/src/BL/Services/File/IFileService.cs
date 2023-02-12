@@ -9,6 +9,6 @@ namespace BL.Services.File
 {
     public interface IFileService : IService
     {
-        Task<FileWithDataDto> GetFileWithData(int fileId, int maxSize);
+        Task<FileDto> GetImage(int fileId, int maxSize);
     }
 }

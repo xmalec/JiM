@@ -17,8 +17,6 @@ namespace DAL.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Seed();
-            modelBuilder.Entity<File>().Property(p => p.Data)
-                .HasColumnType("MediumBlob");
             base.OnModelCreating(modelBuilder);
         }
 

@@ -9,6 +9,6 @@ namespace DAL.Models
         public DateTime DateCreated { get; set; }
         public int Height { get; set; }
         public int Width { get; set; }
-        public byte[] Data { get; set; }
+        public string Path { get; set; }
     }
 }

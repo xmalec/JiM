@@ -4,6 +4,7 @@ using DAL.Models;
 using Extensions.Extensions;
 using AutoMapper;
 using Microsoft.Extensions.Caching.Memory;
+using System.Drawing;
 
 namespace BL.Services.File
 {
@@ -22,14 +23,15 @@ namespace BL.Services.File
             this.imageProcessorService = imageProcessorService;
         }
 
-        public Task<FileWithDataDto> GetFileWithData(int fileId, int maxSize)
+        public Task<FileDto> GetImage(int fileId, int maxSize)
         {
             return memoryCache.GetOrCreateAsync(GetCacheKey(fileId, maxSize),
                 entry =>
                 {
-                    var file = fileRepository.GetById(fileId).Map<FileWithDataDto>();
-                    file.Data = imageProcessorService.Resize(file.Data, maxSize);
-                    return Task.FromResult(file);
+                    var fileDto = fileRepository.GetById(fileId).Map<FileDto>();
+                    var baseDir = AppDomain.CurrentDomain.BaseDirectory;
+                    fileDto.Data = imageProcessorService.Resize($"{baseDir}/{fileDto.Path}", maxSize);
+                    return Task.FromResult(fileDto);
                 });
         }
 

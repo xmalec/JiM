@@ -20,7 +20,7 @@ namespace WebApi.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAsync(int id, int maxSize = 10000)
         {
-            var file = await fileService.GetFileWithData(id, maxSize);       
+            var file = await fileService.GetImage(id, maxSize);       
             return File(file.Data, file.FileType);
         }
     }

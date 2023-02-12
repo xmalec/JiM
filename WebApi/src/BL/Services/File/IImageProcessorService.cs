@@ -9,6 +9,6 @@ namespace BL.Services.File
 {
     public interface IImageProcessorService : IService
     {
-        public byte[] Resize(byte[] data, float maxWidth);
+        public byte[] Resize(string path, float maxWidth);
     }
 }

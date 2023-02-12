@@ -59,7 +59,6 @@ namespace BL.Services.Email
             string baseDir = AppDomain.CurrentDomain.BaseDirectory;
             string templateDir = Path.Combine(baseDir, "Templates");
             string templatePath = Path.Combine(templateDir, emailTemplate);
-
             using FileStream fileStream = new FileStream(templatePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
             using StreamReader streamReader = new StreamReader(fileStream, Encoding.Default);
 

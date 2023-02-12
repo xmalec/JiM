@@ -9,7 +9,7 @@ namespace BL.Mapping
     {
         public FileProfile()
         {
-            CreateMap<File, FileWithDataDto>();
+            CreateMap<File, FileDto>();
         }
     }
 }
