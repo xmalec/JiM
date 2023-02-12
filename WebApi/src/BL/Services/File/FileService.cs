@@ -5,6 +5,7 @@ using Extensions.Extensions;
 using AutoMapper;
 using Microsoft.Extensions.Caching.Memory;
 using System.Drawing;
+using BL.Constants;
 
 namespace BL.Services.File
 {
@@ -33,6 +34,11 @@ namespace BL.Services.File
                     fileDto.Data = imageProcessorService.Resize($"{baseDir}/{fileDto.Path}", maxSize);
                     return Task.FromResult(fileDto);
                 });
+        }
+
+        public Task SaveImage(byte[] binary, FileType fileType)
+        {
+            throw new NotImplementedException();
         }
 
         private string GetCacheKey(int fileId, int maxSize)
