@@ -41,6 +41,7 @@ namespace DAL.Repositories
         {
             TEntity entityToDelete = dbSet.Find(id);
             Delete(entityToDelete);
+            await context.SaveChangesAsync();
         }
 
         public TEntity GetById(int id)
