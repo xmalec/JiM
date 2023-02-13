@@ -6,9 +6,8 @@ namespace DAL.Models
         public string FileType { get; set; }
         public string Extension { get; set; }
         public int Size { get; set; }
-        public DateTime DateCreated { get; set; }
-        public int Height { get; set; }
-        public int Width { get; set; }
+        public int? Height { get; set; }
+        public int? Width { get; set; }
         public string Path { get; set; }
     }
 }

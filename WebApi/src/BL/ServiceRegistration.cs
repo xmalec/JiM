@@ -26,6 +26,15 @@ namespace BL
             return new[] { typeof(ServiceRegistration).Assembly };
         }
 
+        public static IServiceCollection AddFileSettingOption(this IServiceCollection serviceCollection, IConfiguration configuration)
+        {
+            var fileSettingOptions = new FileSettingOptions();
+            serviceCollection.Configure<FileSettingOptions>(x =>
+                configuration.GetSection(FileSettingOptions.SectionName)
+            );
+            return serviceCollection;
+        }
+
         public static IServiceCollection AddEmailing(this IServiceCollection serviceCollection, IConfiguration configuration)
         {
             var emailSettingOptions = new EmailSettingOptions();

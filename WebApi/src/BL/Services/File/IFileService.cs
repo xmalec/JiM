@@ -11,6 +11,6 @@ namespace BL.Services.File
     public interface IFileService : IService
     {
         Task<FileDto> GetImage(int fileId, int maxSize);
-        Task SaveImage(byte[] binary, FileType fileType);
+        Task SaveFile(FileModel fileModel, FileType fileType);
     }
 }

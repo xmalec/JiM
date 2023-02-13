@@ -1,4 +1,5 @@
-﻿using BL.Services;
+﻿using BL.Models.File;
+using BL.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,7 @@ namespace BL.Services.File
 {
     public interface IImageProcessorService : IService
     {
-        public byte[] Resize(string path, float maxWidth);
+        public ImageCompressResult Resize(string path, int maxWidth);
+        public ImageCompressResult Compress(byte[] binary, int maxWidth);
     }
 }

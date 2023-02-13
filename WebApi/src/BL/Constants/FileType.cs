@@ -16,6 +16,17 @@ namespace BL.Constants
         }
 
         public static FileType ImagePost = new FileType("posts");
-        public static FileType ImageUserPage = new FileType("userPages");
+        public static FileType ImageUserPage = new FileType("SubFolder");
+
+        public override bool Equals(object? obj)
+        {
+            return obj is FileType type &&
+                   FolderName == type.FolderName;
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(FolderName);
+        }
     }
 }

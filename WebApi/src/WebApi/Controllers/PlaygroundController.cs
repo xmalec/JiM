@@ -1,5 +1,8 @@
-﻿using BL.Models.Email;
+﻿using BL.Constants;
+using BL.Models.Email;
+using BL.Models.File;
 using BL.Services.Email;
+using BL.Services.File;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,10 +11,22 @@ namespace WebApi.Controllers
     public class PlaygroundController : ApiControllerBase
     {
         private readonly IEmailService emailService;
+        private readonly IFileService fileService;
 
-        public PlaygroundController(IEmailService emailService)
+        public PlaygroundController(IEmailService emailService, IFileService fileService)
         {
             this.emailService = emailService;
+            this.fileService = fileService;
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        public async Task<IActionResult> SaveFile([FromBody] FileModel fileModel)
+        {
+            //fileModel.Binary = System.IO.File.ReadAllBytes("../../data/imageDisplay.gif");
+            //fileModel.FileType = "image/gif";
+            await fileService.SaveFile(fileModel, FileType.ImageUserPage);
+            return Ok();
         }
 
         [AllowAnonymous]
