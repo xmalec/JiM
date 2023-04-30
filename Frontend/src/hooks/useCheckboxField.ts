@@ -17,8 +17,8 @@ const useCheckboxField = (id: string, required = false) => {
 			onBlur: useCallback(() => setTouched(true), []),
 			required,
 			error,
-			helperText: error ? "Required" : undefined
-		}
+			helperText: error ? "Required" : undefined,
+		},
 	] as const;
 };
 
