@@ -1,7 +1,7 @@
 import { useCallback, useState } from "react";
 
 const useSelectField = (id: string, required?: boolean) => {
-	const [value, setValue] = useState("");
+	const [value] = useState("");
 	const [touched, setTouched] = useState(false);
 
 	const error = required && touched && !value;

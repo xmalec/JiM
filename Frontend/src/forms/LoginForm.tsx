@@ -1,18 +1,8 @@
-import { useState, FormEvent, useCallback } from "react";
-import { useNavigate } from "react-router-dom";
-
-import { login } from "../hooks/useFetchData";
-import useField from "../hooks/useField";
-import useLoggedInUser from "../hooks/useLoggedInUser";
-import { BadRequestError } from "../utils/ApiConnector";
-import { Form, Field } from "react-final-form";
-import { required } from "../utils/FormValidationRules";
-import { log } from "console";
+import { useCallback } from "react";
+import { Form } from "react-final-form";
 import TextInput from "./TextInput";
 
 const LoginForm = () => {
-	const navigate = useNavigate();
-	const [, setAuth] = useLoggedInUser();
 	const onSubmit = useCallback(() => {
 		console.log("submited");
 	}, []);

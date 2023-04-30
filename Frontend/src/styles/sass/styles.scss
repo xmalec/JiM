@@ -1,0 +1,248 @@
+@import "board.scss";
+
+body {
+	background: $bg-color;
+	margin: 0;
+	.strip {
+		background: $primary-color;
+		height: 6px;
+		width: 100%;
+	}
+
+	.container {
+		display: flex;
+		flex-direction: column;
+		@include xl {
+			flex-direction: row;
+		}
+
+		main {
+			display: flex;
+			flex-direction: column;
+			gap: 40px;
+			align-items: center;
+			margin: 100px 0;
+			flex: 1;
+			@include lg {
+				margin: 50px 0;
+			}
+			@include md {
+				margin: 50px 25px;
+			}
+			@include sm {
+				margin: 25px 10px;
+			}
+
+			.container-group {
+				display: inherit;
+				flex-direction: inherit;
+				align-items: inherit;
+				gap: 20px;
+				width: 100%;
+				margin-bottom: 50px;
+			}
+
+			#search-bar-loading {
+				padding-right: 20px;
+			}
+
+			.search-results {
+				display: inherit;
+				flex-direction: inherit;
+				align-items: inherit;
+				gap: 5px;
+				width: 100%;
+
+				.container-box {
+					padding: 20px 50px;
+					gap: 15px;
+				}
+
+				.search-result-title {
+					display: flex;
+					gap: 5px;
+					flex-direction: column;
+
+					.subtitle {
+						@extend .text;
+						color: $text-light-gray;
+					}
+				}
+			}
+		}
+	}
+
+	.container-box-container {
+		max-width: 580px;
+		width: 100vw;
+		@include md {
+			width: calc(100vw - 66px);
+		}
+		@include sm {
+			width: calc(100vw - 40px);
+		}
+	}
+
+	.container-box {
+		border-radius: 20px;
+		display: flex;
+		flex-direction: column;
+		gap: 18px;
+		padding: 30px 50px;
+
+		&.container-box-main {
+			background-color: $container-box-color;
+			@extend .shadow-sm;
+		}
+
+		&.container-box-dark {
+			background-color: initial;
+			border: 1px $bg-line solid;
+			@extend .shadow-sm;
+		}
+
+		&.container-box-nobox {
+			@extend .text-19;
+			padding: 0;
+		}
+
+		@include sm {
+			padding: 30px 20px;
+		}
+	}
+
+	.container-dashed {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		gap: 20px;
+		height: 150px;
+		border: 1px dashed $input-line;
+		border-radius: 20px;
+		@extend .text-simple;
+		color: $text-gray;
+		cursor: pointer;
+		width: 100%;
+		overflow: hidden;
+	}
+	.info-grid {
+		display: flex;
+		flex-direction: column;
+		gap: 75px;
+		overflow: hidden;
+		.info-grid-group {
+			display: flex;
+			flex-direction: column;
+			gap: 22px;
+
+			.info-grid-row {
+				display: flex;
+				flex-wrap: wrap;
+				&.badges {
+					flex-wrap: nowrap;
+				}
+				row-gap: 5px;
+				& > div:first-child {
+					width: 175px;
+				}
+				@include sm {
+					flex-direction: column;
+				}
+			}
+		}
+
+		&.unloaded {
+			.info-grid-row {
+				background-color: $unloaded-row;
+				height: 40px;
+			}
+		}
+	}
+
+	.header-unloaded {
+		height: 50px;
+		background-color: $unloaded-header;
+		width: 350px;
+	}
+
+	.badges-container {
+		display: flex;
+		flex-wrap: wrap;
+		flex-direction: row;
+		gap: 5px;
+
+		&.filter {
+			.badge {
+				background-color: $tag-filter-fill;
+				border: 1px $tag-filter-stroke solid;
+			}
+		}
+	}
+
+	.badge {
+		display: flex;
+		gap: 10px;
+		align-items: center;
+		background-color: $tag-fill;
+		border: 1px $tag-stroke solid;
+		border-radius: 20px;
+		padding: 8px 18px;
+
+		&.badge-secondary {
+			background-color: $tag-secondary-fill;
+			border: 1px $tag-secondary-stroke solid;
+		}
+
+		.badge-text {
+			@extend .text-button;
+		}
+		.cross {
+			cursor: pointer;
+		}
+	}
+
+	.profile-image {
+		width: 120px;
+		height: 120px;
+		border-radius: 150px;
+		overflow: hidden;
+		position: relative;
+		//display: flex;
+		//justify-content: center;
+		&.unloaded {
+			background-color: $unloaded-header;
+		}
+
+		img {
+			position: absolute;
+			&.horizontal {
+				left: 50%;
+				height: 100%;
+				transform: translateX(-50%);
+			}
+			&.vertical {
+				top: 50%;
+				width: 100%;
+				transform: translateY(-50%);
+			}
+		}
+	}
+
+	.show-next {
+		color: $secondary-color;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		@extend .text-button;
+		gap: 15px;
+		cursor: pointer;
+	}
+}
+
+p {
+	a {
+		color: $primary-color;
+		font-weight: 600;
+	}
+}

@@ -17,11 +17,12 @@
 	"scripts": {
 		"start": "react-scripts start",
 		"build": "react-scripts build",
-		"test": "react-scripts test",
 		"eject": "react-scripts eject",
 		"tailwind": "npx tailwindcss -i ./src/input.css -o ./src/output.css --watch",
 		"lint": "eslint \"./src/**/*.{ts,tsx}\" && prettier \"./src/**/*.{ts,tsx}\" --check",
-		"prettier": "prettier \"./src/**/*.{ts,tsx}\" --write"
+		"lint-fix": "eslint \"./src/**/*.{ts,tsx}\" --fix",
+		"prettier": "prettier \"./src/**/*.{ts,tsx}\" --write",
+		"sassWatchTemplate": "sass --watch src/styles/sass:template/styles/public"
 	},
 	"browserslist": {
 		"production": [

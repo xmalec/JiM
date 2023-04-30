@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="styles/public/styles.css" />
+		<title>Labnet</title>
+		<script type="module" src="./scripts/public/navigation.js" t></script>
+	</head>
+	<body>
+		<div class="strip"></div>
+
+		<div class="container">
+			<nav class="navigation">
+				<div class="navigation-header">
+					<a href="#" class="navigation-item">
+						<div class="navigation-logo"></div>
+					</a>
+					<div class="bars">
+						<i class="fa-solid fa-bars fa-lg"></i>
+					</div>
+				</div>
+				<div class="navigation-main">
+					<div class="navigation-menu">
+						<a href="#" class="navigation-item-container">
+							<div class="navigation-item">
+								<span class="icon"
+									><i
+										class="fa-solid fa-magnifying-glass fa-lg"
+									></i>
+								</span>
+								<span class="navigation-item-text"
+									>Vyhledávání</span
+								>
+							</div>
+						</a>
+						<div class="navigation-menu-item-container">
+							<a
+								href="#"
+								class="navigation-item-container active"
+							>
+								<div class="navigation-item">
+									<span class="icon"
+										><i
+											class="fa-solid fa-user-pen fa-lg"
+										></i
+									></span>
+									<span class="navigation-item-text"
+										>Nastavení</span
+									>
+								</div>
+							</a>
+							<div class="navigation-submenu-container">
+								<a href="#" class="navigation-item submenu">
+									<span class="icon"></span>
+									<span class="navigation-item-text"
+										>Osobní údaje</span
+									>
+								</a>
+								<a
+									href="#"
+									class="navigation-item submenu active"
+								>
+									<span class="icon"></span>
+									<span class="navigation-item-text"
+										>Vaše dítě</span
+									>
+								</a>
+								<a href="#" class="navigation-item submenu">
+									<span class="icon"></span>
+									<span class="navigation-item-text"
+										>Zabezpečení</span
+									>
+								</a>
+								<a href="#" class="navigation-item submenu">
+									<span class="icon"></span>
+									<span class="navigation-item-text"
+										>Informace</span
+									>
+								</a>
+							</div>
+						</div>
+						<a href="#" class="navigation-item-container">
+							<div class="navigation-item">
+								<span class="icon"
+									><i
+										class="fa-solid fa-note-sticky fa-lg"
+									></i
+								></span>
+								<span class="navigation-item-text"
+									>Nástěnka</span
+								>
+							</div>
+						</a>
+						<a href="#" class="navigation-item-container">
+							<div class="navigation-item">
+								<span class="icon"
+									><i class="fa-solid fa-list fa-lg"></i
+								></span>
+								<span class="navigation-item-text">Obory</span>
+							</div>
+						</a>
+					</div>
+					<a href="#" class="navigation-item-container">
+						<div class="navigation-item logout">
+							<span class="icon"
+								><i
+									class="fa-solid fa-arrow-right-from-bracket fa-lg"
+								></i
+							></span>
+							<span class="navigation-item-text"
+								>Odhlásit se</span
+							>
+						</div>
+					</a>
+				</div>
+			</nav>
+
+			<main>
+				<div class="container-group">
+					<div class="profile-image">
+						<img src="img/profile-image.jfif" />
+					</div>
+					<div class="h1">Jiří Malec</div>
+				</div>
+
+				<div class="h1">Karta vašeho dítěte / dětí</div>
+				<div class="container-group">
+					<div class="container-box-container">
+						<div class="container-box container-box-dark">
+							<div class="h2">Jméno Dítěte</div>
+							<div class="info-grid">
+								<div class="info-grid-row">
+									<div class="text-button">Třída</div>
+									<div class="text">4. D</div>
+								</div>
+								<div class="info-grid-row">
+									<div class="text-button">Zájmy</div>
+									<div class="badges-container">
+										<div class="badge">
+											<span class="badge-text"
+												>lezení</span
+											>
+										</div>
+										<div class="badge">
+											<span class="badge-text"
+												>lezenaaaí</span
+											>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="flex-end">
+								<button
+									class="btn btn-void error text-button-sm"
+									type="button"
+								>
+									Smazat
+								</button>
+								<button
+									class="btn btn-secondary text-button-sm"
+									type="button"
+								>
+									<i class="fa-solid fa-pen-to-square"></i>
+									Upravit
+								</button>
+							</div>
+						</div>
+					</div>
+					<div class="container-box-container">
+						<div class="container-dashed">
+							<i class="upload-icon fa-solid fa-plus fa-lg"></i>
+							<span class="upload-text">Přidat další dítě</span>
+						</div>
+					</div>
+				</div>
+
+				<div class="h1">Vaše osobní údaje</div>
+				<form>
+					<div class="container-box-container">
+						<div class="container-box container-box-main">
+							<div class="h1">Přihlášení</div>
+							<div class="form-control">
+								<label class="required">Jméno</label>
+								<div class="form-control-input">
+									<input name="name" />
+									<span class="input-icons">
+										<span class="exc"
+											><i
+												class="fa-solid fa-circle-exclamation"
+											></i
+										></span>
+									</span>
+								</div>
+								<span class="error-message"></span>
+							</div>
+							<div class="form-control">
+								<label class="required">Heslo</label>
+								<div class="form-control-input has-error">
+									<input name="password" type="password" />
+									<span class="input-icons">
+										<span class="exc"
+											><i
+												class="fa-solid fa-circle-exclamation"
+											></i
+										></span>
+										<span class="password-switch"
+											><i
+												class="fa-regular fa-eye-slash"
+											></i
+										></span>
+									</span>
+								</div>
+								<span class="error-message">Vyplňte heslo</span>
+							</div>
+							<div class="form-control">
+								<label class="required"
+									>Zájmy (oddělte čárkou)</label
+								>
+								<div
+									class="form-control-badges badges-container"
+								>
+									<div class="badge">
+										<span class="badge-text">lezení</span>
+										<i class="cross fa-solid fa-xmark"></i>
+									</div>
+									<div class="badge">
+										<span class="badge-text"
+											>lezenaaaí</span
+										>
+										<i class="cross fa-solid fa-xmark"></i>
+									</div>
+									<div class="badge">
+										<span class="badge-text"
+											>lezesssdsdsd ssní</span
+										>
+										<i class="cross fa-solid fa-xmark"></i>
+									</div>
+									<div class="badge">
+										<span class="badge-text">lení</span>
+										<i class="cross fa-solid fa-xmark"></i>
+									</div>
+									<input
+										name="name"
+										placeholder="Napište.."
+									/>
+									<span class="exc"></span>
+									<span class="cross error-message"></span>
+								</div>
+							</div>
+							<div class="form-control">
+								<div class="container-dashed has-error">
+									<i
+										class="upload-icon fa-solid fa-plus fa-lg"
+									></i>
+									<span class="upload-text"
+										>Nahrajte profilovou fotku</span
+									>
+								</div>
+								<input type="file" class="d-none" />
+								<span class="error-message"
+									>Prosím nahrajte profilový obrázek</span
+								>
+							</div>
+							<div class="form-control">
+								<label>Podrobnosti</label>
+								<div class="form-control-input">
+									<textarea
+										ro
+										name="name"
+										rows="5"
+									></textarea>
+									<span class="input-icons">
+										<span class="exc"
+											><i
+												class="fa-solid fa-circle-exclamation"
+											></i
+										></span>
+									</span>
+								</div>
+								<span class="error-message"></span>
+							</div>
+							<div class="flex-space-between">
+								<div class="form-control checkbox">
+									<div class="form-control-checkbox">
+										<input type="checkbox" />
+									</div>
+									<span class="text-button">Zapamatovat</span>
+								</div>
+								<span>
+									<a href="#" class="text-button">
+										Zapomněli jste heslo?
+									</a>
+								</span>
+							</div>
+
+							<button
+								type="submit"
+								class="btn btn-primary btn-big align-self-center"
+							>
+								Přihlásit se
+							</button>
+						</div>
+					</div>
+
+					<div class="container-box-container">
+						<div class="container-box container-box-main">
+							<div class="h2">Přihlášení</div>
+							<div class="form-control">
+								<label class="required">Jméno</label>
+								<div class="form-control-input">
+									<input name="name" />
+									<span class="input-icons">
+										<span class="exc"
+											><i
+												class="fa-solid fa-circle-exclamation"
+											></i
+										></span>
+									</span>
+								</div>
+								<span class="error-message"></span>
+							</div>
+							<div class="form-control">
+								<label class="required">Fáro</label>
+								<div class="form-control-select">
+									<select name="cars">
+										<option value="" selected>
+											-- Vyberte
+										</option>
+										<option value="volvo">Volvo</option>
+										<option value="saab">Saab</option>
+										<option value="mercedes">
+											Mercedes
+										</option>
+										<option value="audi">Audi</option>
+									</select>
+									<span class="input-icons">
+										<span class="exc"
+											><i
+												class="fa-solid fa-circle-exclamation"
+											></i
+										></span>
+									</span>
+								</div>
+								<span class="error-message"></span>
+							</div>
+							<div class="flex-space-between w-100">
+								<a type="button" class="btn btn-secondary"
+									>Zrušit</a
+								>
+								<a type="button" class="btn btn-primary"
+									>Uložit změny</a
+								>
+							</div>
+						</div>
+					</div>
+
+					<div class="container-box-container">
+						<div class="container-box container-box-dark">
+							<div class="h2">Uživatelské jméno</div>
+							<span class="text">jirka.malec98@seznam.cz</span>
+						</div>
+					</div>
+
+					<div class="container-box-container">
+						<div class="container-box container-box-dark">
+							<div class="h2">Heslo</div>
+							<div class="flex-space-between">
+								<button class="btn btn-secondary" type="button">
+									<i class="fa-solid fa-pen-to-square"></i>
+									Upravit
+								</button>
+								<span>
+									<a href="#" class="text-button">
+										Zapomněli jste heslo?
+									</a>
+								</span>
+							</div>
+						</div>
+					</div>
+
+					<div class="flex-space-between w-100">
+						<a type="button" class="btn btn-secondary btn-big"
+							>Zpět</a
+						>
+						<a type="button" class="btn btn-primary btn-big"
+							>Pokračovat</a
+						>
+					</div>
+				</form>
+				<div class="h1">Vaše osobní údaje</div>
+				<div class="container-box-container">
+					<div class="container-box container-box-nobox">
+						<p>
+							Lorem ipsum dolor sit amet, consectetuer adipiscing
+							elit. Mauris elementum mauris vitae tortor. Morbi
+							imperdiet, mauris ac auctor dictum, nisl ligula
+							egestas nulla, et sollicitudin sem purus in lacus.
+							Itaque earum rerum hic tenetur a sapiente delectus,
+							ut aut reiciendis voluptatibus maiores alias
+							consequatur aut perferendis doloribus asperiores
+							repellat. In dapibus augue non sapien
+							<br />
+							<br />
+							Kontakt na správce<br />
+							brona.musil@gmail.com
+						</p>
+					</div>
+				</div>
+			</main>
+		</div>
+		<div class="flashMessage">Test 1 2 3</div>
+	</body>
+</html>

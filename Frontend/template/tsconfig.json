@@ -1,0 +1,13 @@
+{
+	"compilerOptions": {
+		"target": "es6",
+		//"module": "commonjs",
+		"outDir": "scripts/public",
+		"rootDir": "scripts/ts",
+		"esModuleInterop": true,
+		"allowSyntheticDefaultImports": true,
+		"types": ["jquery"]
+		//"moduleResolution": "node"
+	},
+	"include": ["scripts/ts/*"]
+}

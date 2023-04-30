@@ -8,8 +8,8 @@ type Props = {
 	label: string;
 };
 
-const TextInput = ({ id, validate, label }: Props) => {
-	const { input, meta } = useField(id, {
+const TextInput = ({ id, validate }: Props) => {
+	const { meta } = useField(id, {
 		subscription: { value: true, touched: true, error: true },
 		validate,
 	});

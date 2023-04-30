@@ -1,4 +1,4 @@
-import { ChangeEvent, useCallback, useState } from "react";
+import { useCallback, useState } from "react";
 
 const useCheckboxField = (id: string, required = false) => {
 	const [checked, setValue] = useState(true);
@@ -17,8 +17,8 @@ const useCheckboxField = (id: string, required = false) => {
 			onBlur: useCallback(() => setTouched(true), []),
 			required,
 			error,
-			helperText: error ? "Required" : undefined,
-		},
+			helperText: error ? "Required" : undefined
+		}
 	] as const;
 };
 
