@@ -19,6 +19,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScheduleTasks", "src\Schedu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "src\Tests\Tests.csproj", "{CF424DC7-43A3-4070-BD44-DDEB2C34A4FB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logging", "src\Logging\Logging.csproj", "{BD9A1321-EADB-4CEF-B9CF-91279A7813DB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -57,6 +59,10 @@ Global
 		{CF424DC7-43A3-4070-BD44-DDEB2C34A4FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CF424DC7-43A3-4070-BD44-DDEB2C34A4FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CF424DC7-43A3-4070-BD44-DDEB2C34A4FB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD9A1321-EADB-4CEF-B9CF-91279A7813DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD9A1321-EADB-4CEF-B9CF-91279A7813DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD9A1321-EADB-4CEF-B9CF-91279A7813DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD9A1321-EADB-4CEF-B9CF-91279A7813DB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
