@@ -15,7 +15,7 @@ namespace BL
     {
         public static IServiceCollection RegisterBL(this IServiceCollection serviceCollection)
         {
-            return serviceCollection.RegisterServices(ServiceLifetime.Transient);
+            return serviceCollection.RegisterServices(ServiceLifetime.Scoped);
         }
 
         private static IServiceCollection RegisterServices(this IServiceCollection serviceCollection,

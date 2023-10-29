@@ -11,7 +11,6 @@ builder.Host.ConfigureLogging(logging =>
     logging.ClearProviders();
     logging.AddConsole();
     logging.AddFileLogger(builder.Configuration);
-    logging.AddDatabaseEventLog();
 });
 
 // Add services to the container.
@@ -27,6 +26,7 @@ services.AddControllers();
 services.AddAllAutoMappers();
 services.AddAzureSearch(builder.Configuration);
 services.AddMemoryCache();
+services.AddDatabaseEventLog();
 services.AddServiceFactory();
 // Start Registering and Initializing AutoMapper
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

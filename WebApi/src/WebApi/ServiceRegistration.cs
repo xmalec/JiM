@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BL.DI;
 using BL.Options;
+using BL.Services.EventLog;
 using Extensions.Extensions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.DependencyInjection.Extensions;
@@ -76,15 +77,13 @@ namespace WebApi
             return serviceCollection;
         }
 
-        public static ILoggingBuilder AddDatabaseEventLog(
-        this ILoggingBuilder builder)
+        public static IServiceCollection AddDatabaseEventLog(this IServiceCollection serviceCollection)
         {
-            //builder.Services.AddSingleton<EventLogServiceFactory>();
-            //builder.Services.AddSingleton<ILoggerProvider, EventLogLoggerProvider>();
-            //builder.Services.TryAddEnumerable(
+            serviceCollection.AddScoped<IEventLogService, EventLogService>();
+            //serviceCollection.TryAddEnumerable(
             //    ServiceDescriptor.Singleton<ILoggerProvider, EventLogLoggerProvider>()
             //);
-            return builder;
+            return serviceCollection;
         }
     }
 }

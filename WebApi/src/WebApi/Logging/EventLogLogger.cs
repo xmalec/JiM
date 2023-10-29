@@ -1,16 +1,11 @@
 ﻿using BL.Constants;
+using BL.DI;
 using BL.Services.EventLog;
 
 namespace WebApi.Logging
 {
     public class EventLogLogger : ILogger
     {
-        private IEventLogService eventLogService;
-
-        public EventLogLogger(IEventLogService eventLogService)
-        {
-            this.eventLogService = eventLogService;
-        }
 
         public IDisposable? BeginScope<TState>(TState state) where TState : notnull => default!;
 
@@ -25,7 +20,10 @@ namespace WebApi.Logging
             {
                 return;
             }
-            eventLogService.Log(EventLogLevel.Convert(logLevel), state.ToString() ?? "Unknown message", eventId);
+            
+            //eventLogService.Log(EventLogLevel.Convert(logLevel), state.ToString() ?? "Unknown message", eventId);
+                // Use eventLogService within the scope.
+            
         }
     }
 }
