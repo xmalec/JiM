@@ -23,8 +23,6 @@
 - Tailwind setup
 
 ## TODO
-
-- Build frontend GitHub Actions
-- Advanced frontend template
+- Validate jwt token - expiration, checksum
 - Create Pipeline to generate idempotent sql script
   - dotnet ef migrations script --idempotent | Set-Content -Path ./migration-idempotent.sql
