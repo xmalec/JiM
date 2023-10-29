@@ -13,6 +13,7 @@ namespace DAL.Data
         public DbSet<User> Users { get; set; }
         public DbSet<File> Files { get; set; }
         public DbSet<ScheduleTask> ScheduleTasks { get; set; }
+        public DbSet<EventLog> EventLogs { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
