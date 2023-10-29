@@ -25,21 +25,20 @@ namespace DAL.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int>("CallStack")
-                        .HasColumnType("int");
+                    b.Property<string>("CallStack")
+                        .HasColumnType("longtext");
 
                     b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("Description")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Event")
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<int>("EventId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Exception")
-                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("Level")
@@ -184,7 +183,7 @@ namespace DAL.Migrations
                             FirstName = "Ladislav",
                             IsAdmin = true,
                             LastName = "Košíček",
-                            PasswordHash = "$2a$11$gvrYtIwvICA0v.CSfh0ahe.s39lCbmtS6xMu2n9ALrBj8ZwywWuTq"
+                            PasswordHash = "$2a$11$6SUOfxFqZkZaIHb8cJY1CugjtbPyfwTTtvBtQzr/eMEfXIFdTztc."
                         },
                         new
                         {
@@ -193,7 +192,7 @@ namespace DAL.Migrations
                             FirstName = "Monika",
                             IsAdmin = false,
                             LastName = "Nejedlá",
-                            PasswordHash = "$2a$11$GLqQYWtzL2OO6TjrBThnUuaJsWguBvmS0M5xzHVUwpfcMo9s17C8e"
+                            PasswordHash = "$2a$11$riJE9EuSjIZ0xWAl0rv2YOSxLWWw5da780GFfUXeENeSKGQlDnwza"
                         });
                 });
 #pragma warning restore 612, 618

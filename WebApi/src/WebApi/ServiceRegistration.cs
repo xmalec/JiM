@@ -9,7 +9,6 @@ using Microsoft.IdentityModel.Tokens;
 using System.Reflection;
 using System.Text;
 using WebApi.Filters;
-using WebApi.Logging;
 
 namespace WebApi
 {
@@ -74,15 +73,6 @@ namespace WebApi
             serviceCollection.AddSingleton<ScopedServiceProviderSource>();
             serviceCollection.AddSingleton<IStartupFilter, ServiceFactoryStartupFilter>();
 
-            return serviceCollection;
-        }
-
-        public static IServiceCollection AddDatabaseEventLog(this IServiceCollection serviceCollection)
-        {
-            //serviceCollection.AddScoped<IEventLogService, EventLogService>();
-            //serviceCollection.TryAddEnumerable(
-            //    ServiceDescriptor.Singleton<ILoggerProvider, EventLogLoggerProvider>()
-            //);
             return serviceCollection;
         }
     }

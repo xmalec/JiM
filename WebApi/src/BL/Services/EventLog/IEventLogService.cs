@@ -10,8 +10,7 @@ namespace BL.Services.EventLog
 {
     public interface IEventLogService : IService
     {
-        Task Log(EventLogLevel level, string message, string source);
-        Task Log(EventLogLevel level, string message, EventId eventId);
-        Task Log(EventLogLevel level, string message, string source, Exception? exception);
+        Task Log(EventLogLevel level, string message, string source, EventId eventId);
+        Task Log(EventLogLevel level, string message, string source, Exception exception);
     }
 }

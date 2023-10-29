@@ -16,13 +16,13 @@ namespace BL.Constants
             Level = level;
         }
 
-        public static EventLogLevel TRACE = new EventLogLevel("TRACE");
-        public static EventLogLevel DEBUG = new EventLogLevel("DEBUG");
-        public static EventLogLevel INFO = new EventLogLevel("INFORMATION");
-        public static EventLogLevel WARNING = new EventLogLevel("WARNING");
-        public static EventLogLevel ERROR = new EventLogLevel("ERROR");
-        public static EventLogLevel CRITICAL = new EventLogLevel("CRITICAL");
-        public static EventLogLevel NONE = new EventLogLevel("NONE");
+        public static EventLogLevel TRACE = new EventLogLevel("Trace");
+        public static EventLogLevel DEBUG = new EventLogLevel("Debug");
+        public static EventLogLevel INFO = new EventLogLevel("Information");
+        public static EventLogLevel WARNING = new EventLogLevel("Warning");
+        public static EventLogLevel ERROR = new EventLogLevel("Error");
+        public static EventLogLevel CRITICAL = new EventLogLevel("Critical");
+        public static EventLogLevel NONE = new EventLogLevel("None");
 
         public static EventLogLevel Convert(LogLevel logLevel)
         {

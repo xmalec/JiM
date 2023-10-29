@@ -64,5 +64,13 @@ namespace BL
 
             return builder;
         }
+
+        public static ILoggingBuilder AddDatabaseEventLog(this ILoggingBuilder builder)
+        {
+            builder.Services.TryAddEnumerable(
+                ServiceDescriptor.Singleton<ILoggerProvider, EventLogLoggerProvider>()
+            );
+            return builder;
+        }
     }
 }

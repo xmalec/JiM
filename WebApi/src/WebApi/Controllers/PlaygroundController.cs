@@ -54,7 +54,8 @@ namespace WebApi.Controllers
         [HttpGet]
         public async Task<IActionResult> Log()
         {
-            logger.LogInformation("Logging test");
+            logger.LogInformation("Shouldnt log");
+            logger.LogWarning("Should log");
             return Ok();
         }
     }
