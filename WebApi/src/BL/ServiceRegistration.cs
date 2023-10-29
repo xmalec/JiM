@@ -1,9 +1,11 @@
 ﻿using BL.Options;
 using BL.Services;
+using BL.Services.EventLog;
 using Extensions.Extensions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System.Net.Http;
+using Microsoft.Extensions.Logging;
+using Serilog;
 using System.Reflection;
 
 namespace BL
@@ -42,6 +44,32 @@ namespace BL
                 configuration.GetSection(EmailSettingOptions.SectionName)
             );
             return serviceCollection;
+        }
+
+        public static ILoggingBuilder AddFileLogger(
+        this ILoggingBuilder builder, IConfiguration configuration)
+        {
+            var logFolder = configuration["logFolder"];
+            Log.Logger = new LoggerConfiguration()
+            .MinimumLevel.Information()
+            .WriteTo.File(
+                $"{logFolder}log-{DateTime.Now:yyyy-MM-dd}.txt",
+                rollingInterval: RollingInterval.Day,
+                outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level:u3}] {Message:lj}{NewLine}{Exception}",
+                retainedFileCountLimit: 10,
+                fileSizeLimitBytes: 100 * 10 ^ 6) //100 MB
+            .CreateLogger();
+            builder.AddSerilog(Log.Logger);
+
+            return builder;
+        }
+
+        public static ILoggingBuilder AddDatabaseEventLog(
+        this ILoggingBuilder builder)
+        {
+            //builder.Services.AddSingleton<ILoggerProvider, EventLogLoggerProvider>();
+
+            return builder;
         }
     }
 }

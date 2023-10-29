@@ -1,9 +1,7 @@
-using AutoMapper;
 using AzureSearch;
 using BL;
 using DAL;
 using Infrastructure;
-using Logging;
 using ScheduleTasks;
 using WebApi;
 
@@ -13,6 +11,7 @@ builder.Host.ConfigureLogging(logging =>
     logging.ClearProviders();
     logging.AddConsole();
     logging.AddFileLogger(builder.Configuration);
+    logging.AddDatabaseEventLog();
 });
 
 // Add services to the container.

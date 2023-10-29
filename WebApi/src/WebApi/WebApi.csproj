@@ -21,7 +21,6 @@
     <ProjectReference Include="..\BL\BL.csproj" />
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
     <ProjectReference Include="..\DAL\DAL.csproj" />
-    <ProjectReference Include="..\Logging\Logging.csproj" />
     <ProjectReference Include="..\ScheduleTasks\ScheduleTasks.csproj" />
   </ItemGroup>
 
