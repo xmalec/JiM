@@ -1,21 +1,19 @@
 ﻿using BL.Constants;
-using Microsoft.Extensions.Logging;
+using BL.Services.EventLog;
+using WebApi.DI;
 
-namespace BL.Services.EventLog
+namespace WebApi.Logging
 {
     public class EventLogLogger : ILogger
     {
-        private readonly IEventLogService eventLogService;
+        private IEventLogService eventLogService;
 
         public EventLogLogger(IEventLogService eventLogService)
         {
             this.eventLogService = eventLogService;
         }
 
-        public IDisposable? BeginScope<TState>(TState state) where TState : notnull
-        {
-            throw new NotImplementedException();
-        }
+        public IDisposable? BeginScope<TState>(TState state) where TState : notnull => default!;
 
         public bool IsEnabled(LogLevel logLevel)
         {

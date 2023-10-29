@@ -4,6 +4,7 @@ using BL.Services.EventLog;
 using Extensions.Extensions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
 using Serilog;
 using System.Reflection;
@@ -60,14 +61,6 @@ namespace BL
                 fileSizeLimitBytes: 100 * 10 ^ 6) //100 MB
             .CreateLogger();
             builder.AddSerilog(Log.Logger);
-
-            return builder;
-        }
-
-        public static ILoggingBuilder AddDatabaseEventLog(
-        this ILoggingBuilder builder)
-        {
-            //builder.Services.AddSingleton<ILoggerProvider, EventLogLoggerProvider>();
 
             return builder;
         }

@@ -11,7 +11,7 @@ namespace DAL.Repositories
 {
     public class UserRepository : BaseRepository<User>, IUserRepository
     {
-        public UserRepository(DALDbContext dbContext, ILogger<BaseRepository<User>> logger) : base(dbContext, logger)
+        public UserRepository(DALDbContext dbContext) : base(dbContext)
         {
         }
 

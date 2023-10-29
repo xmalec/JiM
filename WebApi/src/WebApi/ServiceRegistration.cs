@@ -2,11 +2,13 @@
 using BL.Options;
 using Extensions.Extensions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.IdentityModel.Tokens;
 using System.Reflection;
 using System.Text;
 using WebApi.DI;
 using WebApi.Filters;
+using WebApi.Logging;
 
 namespace WebApi
 {
@@ -72,6 +74,17 @@ namespace WebApi
             serviceCollection.AddSingleton<IStartupFilter, ServiceFactoryStartupFilter>();
 
             return serviceCollection;
+        }
+
+        public static ILoggingBuilder AddDatabaseEventLog(
+        this ILoggingBuilder builder)
+        {
+            //builder.Services.AddSingleton<EventLogServiceFactory>();
+            //builder.Services.AddSingleton<ILoggerProvider, EventLogLoggerProvider>();
+            //builder.Services.TryAddEnumerable(
+            //    ServiceDescriptor.Singleton<ILoggerProvider, EventLogLoggerProvider>()
+            //);
+            return builder;
         }
     }
 }

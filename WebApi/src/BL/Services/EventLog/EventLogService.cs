@@ -16,17 +16,22 @@ namespace BL.Services.EventLog
 
         public void Log(EventLogLevel level, string message, string source)
         {
-            eventLogRepository.Insert(CreateEntityInternal(level, message, source, null));
+            InsertInternal(CreateEntityInternal(level, message, source, null));
         }
 
         public void Log(EventLogLevel level, string message, string source, Exception? exception)
         {
-            eventLogRepository.Insert(CreateEntityInternal(level, message, source, exception));
+            InsertInternal(CreateEntityInternal(level, message, source, exception));
         }
 
         public void Log(EventLogLevel level, string message, EventId eventId)
         {
-            eventLogRepository.Insert(CreateEntityInternal(level, message, eventId.Name ?? "UNKNOWN Source", null));
+            InsertInternal(CreateEntityInternal(level, message, eventId.Name ?? "UNKNOWN Source", null));
+        }
+
+        private void InsertInternal(DAL.Models.EventLog entity)
+        {
+            eventLogRepository.Insert(entity);
         }
 
         private DAL.Models.EventLog CreateEntityInternal(EventLogLevel level, string message, string source, Exception? exception)

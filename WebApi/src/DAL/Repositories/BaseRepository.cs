@@ -15,16 +15,13 @@ namespace DAL.Repositories
 
         private readonly DALDbContext context;
         private readonly DbSet<TEntity> dbSet;
-        private readonly ILogger<BaseRepository<TEntity>> logger;
 
         private readonly string entityName = typeof(TEntity).Name;
 
-        public BaseRepository(DALDbContext dbContext,
-            ILogger<BaseRepository<TEntity>> logger)
+        public BaseRepository(DALDbContext dbContext)
         {
             context = dbContext;
             dbSet = dbContext.Set<TEntity>();
-            this.logger = logger;
         }
 
         public async Task Delete(TEntity entity)
@@ -34,7 +31,6 @@ namespace DAL.Repositories
                 dbSet.Attach(entity);
             }
             dbSet.Remove(entity);
-            logger.LogInformation($"DELETE object {entityName}. Id: {entity.Id}");
         }
 
         public async Task Delete(int id)
@@ -55,7 +51,6 @@ namespace DAL.Repositories
             dbSet.Add(entity);
             await context.SaveChangesAsync();
             context.Entry(entity).State = EntityState.Detached;
-            logger.LogInformation($"CREATE object {entityName}. Id: {entity.Id}");
         }
 
         public IQueryable<TEntity> Query()
@@ -70,7 +65,6 @@ namespace DAL.Repositories
             entity.CreatedDate = originalEntity.CreatedDate;
             context.Entry(originalEntity).CurrentValues.SetValues(entity);
             await context.SaveChangesAsync();
-            logger.LogInformation($"UPDATE object {entityName}. Id: {entity.Id}");
         }
     }
 }
