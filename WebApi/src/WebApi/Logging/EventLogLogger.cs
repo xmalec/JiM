@@ -1,6 +1,5 @@
 ﻿using BL.Constants;
 using BL.Services.EventLog;
-using WebApi.DI;
 
 namespace WebApi.Logging
 {

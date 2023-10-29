@@ -1,7 +1,4 @@
 ﻿using BL.Services.EventLog;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using WebApi.DI;
 
 namespace WebApi.Logging
 {
