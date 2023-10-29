@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.AspNetCore.Http;
 
-namespace WebApi.DI
+namespace BL.DI
 {
     /// <summary>
     /// Scoped <see cref="IServiceProvider"/> source

@@ -1,16 +1,26 @@
 ﻿using BL.Constants;
+using BL.DI;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
 namespace BL.Services.EventLog
 {
     public class EventLogLogger : ILogger
     {
-        private readonly IEventLogService eventLogService;
+        private IEventLogService? _eventLogService;
 
-        public EventLogLogger(IEventLogService eventLogService)
+        private IEventLogService EventLogService
         {
-            this.eventLogService = eventLogService;
+            get
+            {
+                if(_eventLogService == null)
+                {
+                    _eventLogService = ServiceFactory.Current.ServiceProvider.GetService<IEventLogService>();
+                }
+                return _eventLogService;
+            }
         }
+
 
         public IDisposable? BeginScope<TState>(TState state) where TState : notnull
         {
@@ -28,7 +38,7 @@ namespace BL.Services.EventLog
             {
                 return;
             }
-            eventLogService.Log(EventLogLevel.Convert(logLevel), state.ToString() ?? "Unknown message", eventId);
+            EventLogService.Log(EventLogLevel.Convert(logLevel), state.ToString() ?? "Unknown message", eventId);
         }
     }
 }

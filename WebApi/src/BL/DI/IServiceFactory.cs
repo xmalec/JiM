@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.Extensions.Options;
 
-namespace WebApi.DI
+namespace BL.DI
 {
     public interface IServiceFactory
     {

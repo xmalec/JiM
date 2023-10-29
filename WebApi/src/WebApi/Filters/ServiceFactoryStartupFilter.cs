@@ -1,4 +1,4 @@
-﻿using WebApi.DI;
+﻿using BL.DI;
 
 namespace WebApi.Filters
 {

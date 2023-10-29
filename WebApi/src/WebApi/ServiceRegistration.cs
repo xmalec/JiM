@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
+using BL.DI;
 using BL.Options;
 using Extensions.Extensions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Reflection;
 using System.Text;
-using WebApi.DI;
 using WebApi.Filters;
 
 namespace WebApi

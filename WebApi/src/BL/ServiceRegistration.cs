@@ -4,6 +4,7 @@ using BL.Services.EventLog;
 using Extensions.Extensions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
 using Serilog;
 using System.Reflection;
@@ -68,7 +69,8 @@ namespace BL
         this ILoggingBuilder builder)
         {
             //builder.Services.AddSingleton<ILoggerProvider, EventLogLoggerProvider>();
-
+            //builder.Services.TryAddEnumerable(
+            //ServiceDescriptor.Singleton<ILoggerProvider, EventLogLoggerProvider>());
             return builder;
         }
     }
