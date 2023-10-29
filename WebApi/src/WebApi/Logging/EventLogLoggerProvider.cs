@@ -17,7 +17,6 @@ namespace WebApi.Logging
 
         public ILogger CreateLogger(string categoryName)
         {
-            var eventLogService = ServiceFactory.Current.ServiceProvider.GetRequiredService<IEventLogService>();
             return _loggers.GetOrAdd(categoryName, name => new EventLogLogger());
         }
 

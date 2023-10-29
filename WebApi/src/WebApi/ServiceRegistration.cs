@@ -79,7 +79,7 @@ namespace WebApi
 
         public static IServiceCollection AddDatabaseEventLog(this IServiceCollection serviceCollection)
         {
-            serviceCollection.AddScoped<IEventLogService, EventLogService>();
+            //serviceCollection.AddScoped<IEventLogService, EventLogService>();
             //serviceCollection.TryAddEnumerable(
             //    ServiceDescriptor.Singleton<ILoggerProvider, EventLogLoggerProvider>()
             //);

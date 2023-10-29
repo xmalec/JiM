@@ -20,10 +20,21 @@ namespace WebApi.Logging
             {
                 return;
             }
+            try
+            {
+                Task.Run(async () =>
+                {
+                    var eventLogService = ServiceFactory.Current.ServiceProvider?.GetRequiredService<IEventLogService>();
+                    if (eventLogService != null)
+                    {
+                        await eventLogService.Log(EventLogLevel.Convert(logLevel), state.ToString() ?? "Unknown message", eventId);
+                    }
+                });
+                
+            } catch(Exception){}
             
-            //eventLogService.Log(EventLogLevel.Convert(logLevel), state.ToString() ?? "Unknown message", eventId);
-                // Use eventLogService within the scope.
-            
+
+
         }
     }
 }

@@ -12,11 +12,13 @@ namespace WebApi.Controllers
     {
         private readonly IEmailService emailService;
         private readonly IFileService fileService;
+        private readonly ILogger<PlaygroundController> logger;
 
-        public PlaygroundController(IEmailService emailService, IFileService fileService)
+        public PlaygroundController(IEmailService emailService, IFileService fileService, ILogger<PlaygroundController> logger)
         {
             this.emailService = emailService;
             this.fileService = fileService;
+            this.logger = logger;
         }
 
         [AllowAnonymous]
@@ -45,6 +47,14 @@ namespace WebApi.Controllers
                 EmailType = BL.Enums.EmailType.NewUser
             };
             await emailService.SendEmailAsync(request);
+            return Ok();
+        }
+
+        [AllowAnonymous]
+        [HttpGet]
+        public async Task<IActionResult> Log()
+        {
+            logger.LogInformation("Logging test");
             return Ok();
         }
     }

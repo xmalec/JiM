@@ -14,24 +14,24 @@ namespace BL.Services.EventLog
             this.eventLogRepository = eventLogRepository;
         }
 
-        public void Log(EventLogLevel level, string message, string source)
+        public async Task Log(EventLogLevel level, string message, string source)
         {
-            InsertInternal(CreateEntityInternal(level, message, source, null));
+            await InsertInternal(CreateEntityInternal(level, message, source, null));
         }
 
-        public void Log(EventLogLevel level, string message, string source, Exception? exception)
+        public async Task Log(EventLogLevel level, string message, string source, Exception? exception)
         {
-            InsertInternal(CreateEntityInternal(level, message, source, exception));
+            await InsertInternal(CreateEntityInternal(level, message, source, exception));
         }
 
-        public void Log(EventLogLevel level, string message, EventId eventId)
+        public async Task Log(EventLogLevel level, string message, EventId eventId)
         {
-            InsertInternal(CreateEntityInternal(level, message, eventId.Name ?? "UNKNOWN Source", null));
+            await InsertInternal(CreateEntityInternal(level, message, eventId.Name ?? "UNKNOWN Source", null));
         }
 
-        private void InsertInternal(DAL.Models.EventLog entity)
+        private async Task InsertInternal(DAL.Models.EventLog entity)
         {
-            eventLogRepository.Insert(entity);
+            await eventLogRepository.Insert(entity);
         }
 
         private DAL.Models.EventLog CreateEntityInternal(EventLogLevel level, string message, string source, Exception? exception)
