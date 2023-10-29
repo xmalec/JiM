@@ -1,11 +1,11 @@
-﻿using BL.Services.User;
+﻿using BL.DI;
+using BL.Services.User;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using WebApi.DI;
 
 namespace WebApi.Validations
 {

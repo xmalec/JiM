@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using BL.DI;
 using BL.Options;
 using Extensions.Extensions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -6,7 +7,6 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.IdentityModel.Tokens;
 using System.Reflection;
 using System.Text;
-using WebApi.DI;
 using WebApi.Filters;
 using WebApi.Logging;
 
