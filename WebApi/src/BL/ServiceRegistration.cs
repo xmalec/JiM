@@ -6,6 +6,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Configuration;
+using MySqlConnector.Logging;
 using Serilog;
 using System.Reflection;
 
@@ -29,21 +31,17 @@ namespace BL
             return new[] { typeof(ServiceRegistration).Assembly };
         }
 
-        public static IServiceCollection AddFileSettingOption(this IServiceCollection serviceCollection, IConfiguration configuration)
+        public static IServiceCollection AddEmailing(this IServiceCollection serviceCollection, IConfiguration configuration)
         {
-            var fileSettingOptions = new FileSettingOptions();
-            serviceCollection.Configure<FileSettingOptions>(x =>
-                configuration.GetSection(FileSettingOptions.SectionName)
-            );
+            serviceCollection.AddOptions<EmailSettingOptions>()
+                .Bind(configuration.GetSection(EmailSettingOptions.SectionName));
             return serviceCollection;
         }
 
-        public static IServiceCollection AddEmailing(this IServiceCollection serviceCollection, IConfiguration configuration)
+        public static IServiceCollection AddFileSettingOption(this IServiceCollection serviceCollection, IConfiguration configuration)
         {
-            var emailSettingOptions = new EmailSettingOptions();
-            serviceCollection.Configure<EmailSettingOptions>( x =>
-                configuration.GetSection(EmailSettingOptions.SectionName)
-            );
+            serviceCollection.AddOptions<FileSettingOptions>()
+                .Bind(configuration.GetSection(FileSettingOptions.SectionName));
             return serviceCollection;
         }
 
@@ -67,9 +65,11 @@ namespace BL
 
         public static ILoggingBuilder AddDatabaseEventLog(this ILoggingBuilder builder)
         {
+            builder.AddConfiguration();
             builder.Services.TryAddEnumerable(
                 ServiceDescriptor.Singleton<ILoggerProvider, EventLogLoggerProvider>()
             );
+            LoggerProviderOptions.RegisterProviderOptions<EventLogLoggerConfiguration, EventLogLoggerProvider>(builder.Services);
             return builder;
         }
     }

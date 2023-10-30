@@ -56,6 +56,7 @@ namespace WebApi.Controllers
         {
             logger.LogInformation("Shouldnt log");
             logger.LogWarning("Should log");
+            logger.LogError("Should log Error");
             return Ok();
         }
     }

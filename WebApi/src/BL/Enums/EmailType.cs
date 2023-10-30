@@ -15,7 +15,7 @@ namespace BL.Enums
     {
         public static string GetTemplateName(this EmailType emailType)
         {
-            return $"{nameof(emailType)}.cshtml";
+            return $"{emailType}.cshtml";
         }
     }
     

@@ -1,5 +1,6 @@
 ﻿using BL.Constants;
 using BL.DI;
+using BL.Options;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
@@ -7,18 +8,27 @@ namespace BL.Services.EventLog
 {
     public class EventLogLogger : ILogger
     {
-        private readonly string source;
+        private readonly string name;
+        private readonly Func<EventLogLoggerConfiguration> getCurrentConfig;
+        private readonly IServiceProvider serviceProvider;
 
-        public EventLogLogger(string source)
+        public EventLogLogger(string source, Func<EventLogLoggerConfiguration> getCurrentConfig, IServiceProvider serviceProvider)
         {
-            this.source = source;
+            this.name = source;
+            this.getCurrentConfig = getCurrentConfig;
+            this.serviceProvider = serviceProvider;
         }
 
         public IDisposable? BeginScope<TState>(TState state) where TState : notnull => default!;
 
         public bool IsEnabled(LogLevel logLevel)
         {
-            return true;
+            if (getCurrentConfig().LogLevel.TryGetValue(name, out var level) ||
+                getCurrentConfig().LogLevel.TryGetValue(EventLogLoggerConfiguration.DEFAULT_KEY, out level))
+            {
+                return (level <= logLevel);
+            }
+            return false;
         }
 
         public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception? exception, Func<TState, Exception?, string> formatter)
@@ -30,18 +40,18 @@ namespace BL.Services.EventLog
 
             Task.Run(async () =>
             {
-                var serviceScopeFactory = ServiceFactory.Current.ServiceProvider?.GetRequiredService<IServiceScopeFactory>();
-                if (serviceScopeFactory != null)
-                {
-                    using (var scope = serviceScopeFactory.CreateScope())
+                var serviceScopeFactory = serviceProvider.GetService<IServiceScopeFactory>();
+                    if (serviceScopeFactory != null)
                     {
-                        var eventLogService = scope.ServiceProvider?.GetService<IEventLogService>();
-                        if (eventLogService != null)
+                        using (var scope = serviceScopeFactory.CreateScope())
                         {
-                            await eventLogService.Log(EventLogLevel.Convert(logLevel), state.ToString() ?? "Unknown message", source, eventId);
+                            var eventLogService = scope.ServiceProvider?.GetService<IEventLogService>();
+                            if (eventLogService != null)
+                            {
+                            await eventLogService.Log(EventLogLevel.Convert(logLevel), state.ToString() ?? "Unknown message", name, eventId);
+                            }
                         }
                     }
-                }
             });
         }
     }

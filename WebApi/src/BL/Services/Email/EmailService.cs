@@ -3,6 +3,7 @@ using BL.Models.Email;
 using BL.Options;
 using MailKit.Net.Smtp;
 using MailKit.Security;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using MimeKit;
 using RazorEngineCore;
@@ -14,6 +15,7 @@ namespace BL.Services.Email
     {
 
         private readonly EmailSettingOptions emailSetting;
+        private readonly ILogger<EmailService> logger;
 
         public EmailService(IOptions<EmailSettingOptions> emailSettingOptions)
         {
@@ -33,8 +35,9 @@ namespace BL.Services.Email
             using var smtp = new SmtpClient();
             smtp.Connect(emailSetting.Host, emailSetting.Port, SecureSocketOptions.StartTls);
             smtp.Authenticate(emailSetting.Email, emailSetting.Password);
-            await smtp.SendAsync(email);
+            var res = await smtp.SendAsync(email);
             smtp.Disconnect(true);
+            logger.LogInformation("Email {0} sent. Result: {1}", mailRequest, res);
         }
 
         public string BuildEmailBody(EmailType emailType, EmailBodyModel emailTemplateModel)
