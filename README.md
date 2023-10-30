@@ -26,4 +26,3 @@
 - Validate jwt token - expiration, checksum
 - Create Pipeline to generate idempotent sql script
   - dotnet ef migrations script --idempotent | Set-Content -Path ./migration-idempotent.sql
-- EventLogLogger DI Registration

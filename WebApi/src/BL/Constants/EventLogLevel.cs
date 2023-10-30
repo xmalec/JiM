@@ -40,8 +40,15 @@ namespace BL.Constants
 
         public override bool Equals(object? obj)
         {
-            return obj is EventLogLevel type &&
-                   Level == type.Level;
+            if(obj is EventLogLevel type)
+            {
+                return Level == type.Level;
+            }
+            if(obj is string str)
+            {
+                return Level.ToLower() == str.ToLower();
+            }
+            return false;       
         }
 
         public override int GetHashCode()

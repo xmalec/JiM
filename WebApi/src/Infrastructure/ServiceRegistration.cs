@@ -12,10 +12,15 @@ namespace Infrastructure
     {
         public static IServiceCollection RegisterInfrastructure(this IServiceCollection serviceCollection)
         {
-            serviceCollection.AddTransient<IUnitOfWorkGlobal, UnitOfWorkGlobal>();;
+            serviceCollection.AddTransient<IUnitOfWorkGlobal, UnitOfWorkGlobal>();
+            serviceCollection.AddTransient<IUnitOfWorkEventLog, UnitOfWorkEventLog>();
             serviceCollection.AddScoped<Func<IUnitOfWorkGlobal>>(serviceCollection => () =>
             {
                 return serviceCollection.GetRequiredService<IUnitOfWorkGlobal>();
+            });
+            serviceCollection.AddScoped<Func<IUnitOfWorkEventLog>>(serviceCollection => () =>
+            {
+                return serviceCollection.GetRequiredService<IUnitOfWorkEventLog>();
             });
             return serviceCollection;
         }

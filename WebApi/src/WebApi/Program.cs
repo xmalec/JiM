@@ -11,7 +11,7 @@ builder.Host.ConfigureLogging(logging =>
     logging.ClearProviders();
     logging.AddConsole();
     logging.AddFileLogger(builder.Configuration);
-    logging.AddDatabaseEventLog();
+    logging.AddDatabaseEventLog(builder.Configuration);
 });
 
 // Add services to the container.

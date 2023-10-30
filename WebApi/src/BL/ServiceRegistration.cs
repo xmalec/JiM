@@ -63,13 +63,15 @@ namespace BL
             return builder;
         }
 
-        public static ILoggingBuilder AddDatabaseEventLog(this ILoggingBuilder builder)
+        public static ILoggingBuilder AddDatabaseEventLog(this ILoggingBuilder builder, IConfiguration configuration)
         {
             builder.AddConfiguration();
             builder.Services.TryAddEnumerable(
                 ServiceDescriptor.Singleton<ILoggerProvider, EventLogLoggerProvider>()
             );
             LoggerProviderOptions.RegisterProviderOptions<EventLogLoggerConfiguration, EventLogLoggerProvider>(builder.Services);
+            builder.Services.AddOptions<EventLogOptions>()
+               .Bind(configuration.GetSection(EventLogOptions.SectionName));
             return builder;
         }
     }
