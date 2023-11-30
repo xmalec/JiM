@@ -15,21 +15,21 @@ namespace BL.Services.File
     {
         public ImageCompressResult Compress(byte[] binary, int maxWidth)
         {
-            using (var image = Image.Load(binary, out var format))
+            using (var image = Image.Load(binary.AsSpan()))
             {
-                return ResizeInternal(image, format, maxWidth);
+                return ResizeInternal(image, maxWidth);
             }
         }
 
         public ImageCompressResult Resize(string path, int maxWidth)
         {
-            using (var image = Image.Load(path, out var format))
+            using (var image = Image.Load(path))
             {
-                return ResizeInternal(image, format, maxWidth);
+                return ResizeInternal(image, maxWidth);
             }
         }
 
-        private ImageCompressResult ResizeInternal(Image image, IImageFormat? format, float maxWidth)
+        private ImageCompressResult ResizeInternal(Image image, float maxWidth)
         {
             var ratio = Math.Min(1, maxWidth / image.Width);
             var result = new ImageCompressResult()
@@ -41,7 +41,7 @@ namespace BL.Services.File
                  .Resize(result.Width, result.Height));
             using (var ms = new MemoryStream())
             {
-                image.Save(ms, format);
+                image.Save(ms, image.Metadata.DecodedImageFormat);
                 result.Binary = ms.ToArray();
                 return result;
             }
