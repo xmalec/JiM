@@ -1,10 +1,7 @@
 ﻿using BL.Models.File;
 using DAL.Repositories;
-using DAL.Models;
 using Extensions.Extensions;
-using AutoMapper;
 using Microsoft.Extensions.Caching.Memory;
-using System.Drawing;
 using BL.Constants;
 using Microsoft.Extensions.Logging;
 using BL.Options;

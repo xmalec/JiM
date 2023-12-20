@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using BL.Models.User;
+﻿using BL.Models.User;
 using DAL.Repositories;
 using Extensions.Extensions;
 
