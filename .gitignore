@@ -40,3 +40,4 @@ bld/
 [Ll]og/
 [Ll]ogs/
 /WebApi/src/WebApi/appsettings.Development.json
+/WebApi/src/Web/Web.csproj.user
