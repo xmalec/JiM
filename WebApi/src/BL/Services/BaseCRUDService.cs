@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using DAL.Models;
+﻿using DAL.Models;
 using DAL.Repositories;
 using Extensions.Extensions;
 

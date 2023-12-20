@@ -1,12 +1,10 @@
 ﻿using BL.Constants;
-using BL.Models.User;
 using BL.Options;
 using DAL.Repositories;
 using Infrastructure.UnitOfWorks;
 using LinqKit;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using System;
 
 namespace BL.Services.EventLog
 {

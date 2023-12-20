@@ -17,30 +17,63 @@ namespace BL.Services.Email
         private readonly EmailSettingOptions emailSetting;
         private readonly ILogger<EmailService> logger;
 
-        public EmailService(IOptions<EmailSettingOptions> emailSettingOptions)
+        public EmailService(IOptions<EmailSettingOptions> emailSettingOptions, ILogger<EmailService> logger)
         {
             emailSetting = emailSettingOptions.Value;
+            this.logger = logger;
         }
 
         public async Task SendEmailAsync(EmailRequest mailRequest)
         {
-            var email = new MimeMessage();
-            email.Sender = MailboxAddress.Parse(emailSetting.Email);
-            email.To.Add(MailboxAddress.Parse(mailRequest.ToEmail));
-            email.Subject = mailRequest.Subject;
-            var builder = new BodyBuilder();
-            builder.HtmlBody = BuildEmailBody(mailRequest.EmailType, mailRequest.EmailBodyModel);
-            email.Body = builder.ToMessageBody();
-            email.From.Add(new MailboxAddress("LabNet", emailSetting.DisplayName));
-            using var smtp = new SmtpClient();
-            smtp.Connect(emailSetting.Host, emailSetting.Port, SecureSocketOptions.StartTls);
-            smtp.Authenticate(emailSetting.Email, emailSetting.Password);
-            var res = await smtp.SendAsync(email);
-            smtp.Disconnect(true);
-            logger.LogInformation("Email {0} sent. Result: {1}", mailRequest, res);
+            try
+            {
+                var email = new MimeMessage();
+                email.Sender = MailboxAddress.Parse(emailSetting.Email);
+                email.To.Add(MailboxAddress.Parse(mailRequest.ToEmail));
+                email.Subject = mailRequest.Subject;
+                var builder = new BodyBuilder();
+                builder.HtmlBody = BuildEmailBody(mailRequest.EmailType, mailRequest.EmailBodyModel);
+                email.Body = builder.ToMessageBody();
+                email.From.Add(new MailboxAddress("LabNet", emailSetting.DisplayName));
+                using var smtp = new SmtpClient();
+                smtp.Connect(emailSetting.Host, emailSetting.Port, SecureSocketOptions.StartTls);
+                smtp.Authenticate(emailSetting.Email, emailSetting.Password);
+                var res = await smtp.SendAsync(email);
+                smtp.Disconnect(true);
+                logger.LogInformation("Email {0} sent. Result: {1}", mailRequest, res);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError($"{ex.Message}{Environment.NewLine}{ex.StackTrace}");
+                throw ex;
+            }
         }
 
-        public string BuildEmailBody(EmailType emailType, EmailBodyModel emailTemplateModel)
+        public async Task SendNewUserEmail(NewUserModel model, bool awaitEmailSend = false)
+        {
+            var request = new EmailRequest()
+            {
+                ToEmail = model.Email,
+                Subject = "Registrace",
+                EmailBodyModel = model,
+                EmailType = EmailType.NewUser
+            };
+            if (awaitEmailSend)
+            {
+                await SendEmailAsync(request);
+            }
+            else
+            {
+                SendEmailInNewThreadAsync(request);
+            }
+        }
+
+        private void SendEmailInNewThreadAsync(EmailRequest request)
+        {
+            Task.Factory.StartNew(() => SendEmailAsync(request));
+        }
+
+        private string BuildEmailBody(EmailType emailType, EmailBodyModel emailTemplateModel)
         {
             return FillTemplate(LayoutModel.TemplateName, new LayoutModel()
             {
@@ -48,7 +81,8 @@ namespace BL.Services.Email
             });
         }
 
-        private string FillTemplate(string templateName, EmailBodyModel emailTemplateModel) {
+        private string FillTemplate(string templateName, EmailBodyModel emailTemplateModel)
+        {
             string mailTemplate = LoadTemplate(templateName);
 
             IRazorEngine razorEngine = new RazorEngine();

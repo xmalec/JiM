@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using B2BWebApi.Models;
+﻿using B2BWebApi.Models;
 using BL.Constants;
 using BL.Models.User;
 using BL.Options;

@@ -1,5 +1,4 @@
-﻿using BL.DI;
-using BL.Options;
+﻿using BL.Options;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System.Collections.Concurrent;
