@@ -1,4 +1,4 @@
-﻿namespace WebApi.Localization
+﻿namespace Localization
 {
     public class SharedResource
     {

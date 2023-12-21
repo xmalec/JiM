@@ -60,7 +60,7 @@ namespace WebApi
                 options.AddPolicy(name: CorsPolicyName,
                                   policy =>
                                   {
-                                      policy.WithOrigins(configuration["FrontendOrigin"]).AllowAnyHeader().AllowAnyMethod();
+                                      policy.WithOrigins(configuration["FrontendOrigin"] ?? string.Empty).AllowAnyHeader().AllowAnyMethod();
                                   });
             });
             return serviceCollection;

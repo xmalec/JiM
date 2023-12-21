@@ -2,6 +2,7 @@ using AzureSearch;
 using BL;
 using DAL;
 using Infrastructure;
+using Localization;
 using ScheduleTasks;
 using WebApi;
 
@@ -26,6 +27,7 @@ services.RegisterCors(builder.Configuration);
 services.AddControllers();
 services.AddAllAutoMappers();
 services.AddAzureSearch(builder.Configuration);
+services.RegisterLocalization();
 services.AddMemoryCache();
 services.AddServiceFactory();
 // Start Registering and Initializing AutoMapper
