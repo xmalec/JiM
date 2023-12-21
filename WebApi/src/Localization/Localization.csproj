@@ -11,4 +11,11 @@
     <PackageReference Include="Microsoft.Extensions.Localization" Version="8.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <EmbeddedResource Update="Resources\SharedResource.cs-CZ.resx">
+      <LastGenOutput>SharedResource.cs-CZ.Designer.cs</LastGenOutput>
+      <Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+
 </Project>

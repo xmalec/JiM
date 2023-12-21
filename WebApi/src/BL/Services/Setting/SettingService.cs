@@ -29,7 +29,7 @@ namespace BL.Services.Setting
                     return result;
                 }
                 logger.LogError("Cannot get boolean value of setting {0}! Application setting is not an boolean.", key);
-                throw new ArgumentException("Cannot get boolean value of setting {0}! Application setting is not an boolean.", key);
+                throw new ArgumentException($"Cannot get boolean value of setting {key}! Application setting is not an boolean.");
             }
             return default;
         }
@@ -52,7 +52,7 @@ namespace BL.Services.Setting
                     return result;
                 }
                 logger.LogError("Cannot get integer value of setting {0}! Application setting is not an integer.", key);
-                throw new ArgumentException("Cannot get integer value of setting {0}! Application setting is not an integer.", key);
+                throw new ArgumentException($"Cannot get integer value of setting {key}! Application setting is not an integer.");
             }
             return default;
         }
@@ -66,7 +66,7 @@ namespace BL.Services.Setting
             if (!GetSetting(key, out value))
             {
                 logger.LogError("Application setting {0} is not set!", key);
-                throw new ArgumentException("Application setting {0} is not set!", key);
+                throw new ArgumentException($"Application setting {key} is not set!");
             }
             return true;
         }

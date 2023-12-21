@@ -9,7 +9,7 @@ namespace BL.Constants
     public class ApplicationSettings
     {
         private const string PREFIX = "ApplicationSettings";
-        public static string BrandName => $"{PREFIX}.BrandName";
-        public static string HelpEmail => $"{PREFIX}.HelpEmail";
+        public static string BrandName => $"{PREFIX}:BrandName";
+        public static string HelpEmail => $"{PREFIX}:HelpEmail";
     }
 }

@@ -15,7 +15,7 @@ namespace DAL
             serviceCollection.AddDbContext<DALDbContext>((options) =>
             {
                 var connectionString = configuration.GetConnectionString("app_db");
-                options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
+                options.UseSqlServer(connectionString);
             });
             serviceCollection.RegisterRepositories(ServiceLifetime.Transient);
             return serviceCollection;

@@ -3,6 +3,7 @@ using BL.Models.Email;
 using BL.Models.File;
 using BL.Services.Email;
 using BL.Services.File;
+using BL.Services.Setting;
 using Localization;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -16,13 +17,15 @@ namespace WebApi.Controllers
         private readonly IFileService fileService;
         private readonly ILogger<PlaygroundController> logger;
         private readonly IStringLocalizer<SharedResource> stringLocalizer;
+        private readonly ISettingService settingService;
 
-        public PlaygroundController(IEmailService emailService, IFileService fileService, ILogger<PlaygroundController> logger, IStringLocalizer<SharedResource> stringLocalizer)
+        public PlaygroundController(IEmailService emailService, IFileService fileService, ILogger<PlaygroundController> logger, IStringLocalizer<SharedResource> stringLocalizer, ISettingService settingService)
         {
             this.emailService = emailService;
             this.fileService = fileService;
             this.logger = logger;
             this.stringLocalizer = stringLocalizer;
+            this.settingService = settingService;
         }
 
         [AllowAnonymous]
@@ -68,6 +71,7 @@ namespace WebApi.Controllers
         [HttpGet]
         public async Task<IActionResult> LocalizationTest()
         {
+            var brandName = settingService.GetString(ApplicationSettings.BrandName);
             var a = stringLocalizer["Hello"];
             return Ok(a);
         }
