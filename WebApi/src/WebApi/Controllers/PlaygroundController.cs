@@ -71,9 +71,16 @@ namespace WebApi.Controllers
         [HttpGet]
         public async Task<IActionResult> LocalizationTest()
         {
+            var hello = stringLocalizer["Hello"];
+            return Ok(hello);
+        }
+
+        [AllowAnonymous]
+        [HttpGet]
+        public async Task<IActionResult> SettingTest()
+        {
             var brandName = settingService.GetString(ApplicationSettings.BrandName);
-            var a = stringLocalizer["Hello"];
-            return Ok(a);
+            return Ok(brandName);
         }
     }
 }
